@@ -52,12 +52,12 @@ export default function Contact() {
             animate={{ opacity: 1, x: 0 }}
             className="flex flex-col gap-8"
           >
-            <div className="bg-brand-dark p-8 md:p-10 rounded-3xl text-white shadow-xl">
+            <div className="bg-zinc-800 p-8 md:p-10 rounded-3xl text-white shadow-xl">
               <h2 className="text-3xl font-black mb-8">संपर्क विवरण</h2>
               <div className="space-y-8">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center shrink-0">
-                    <Mail className="text-brand-blue" size={24} />
+                    <Mail className="text-red-700" size={24} />
                   </div>
                   <div>
                     <h3 className="text-xl font-bold mb-1">ईमेल</h3>
