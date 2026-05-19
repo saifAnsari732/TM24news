@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { MessageCircle } from 'lucide-react';
+import { MessageCircle, Megaphone, Mail, Phone } from 'lucide-react';
 import Home from './pages/Home';
 import About from './pages/About';
 import Mission from './pages/Mission';
@@ -18,21 +18,58 @@ import Footer from './components/Footer';
 function App() {
   return (
     <Router>
-        {/* Authentic Branding Tagline Bar - Gradient: First Red then Blue */}
-        <div className="bg-gradient-to-r from-[#b30303] to-[#0429b3] text-white py-2.5 shadow-sm relative z-30">
-          <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-2 text-xs md:text-sm font-bold tracking-wide text-center">
-            <div className="flex items-center gap-2.5 justify-center flex-wrap">
-              <span className="bg-white text-[#FF0000] text-[10px] uppercase px-2 py-0.5 rounded font-black shrink-0 animate-pulse tracking-widest border border-white/20">AUTHENTIC</span>
-              <span>TM24 NEWS: देश का सबसे भरोसेमंद, निष्पक्ष और प्रमाणिक राष्ट्रीय डिजिटल समाचार पोर्टल</span>
-            </div>
-            <div className="hidden lg:flex items-center gap-4 text-zinc-100">
-              <span>सच्ची खबरें • निष्पक्ष राय • तेज़ रिपोर्टिंग</span>
-            </div>
-          </div>
-        </div>
       <ScrollToTop />
       <div className="flex flex-col min-h-screen">
-        {/* <BreakingNewsTicker /> */}
+        {/* Top Premium Animated Advertisement & Contact Strip - Sticky Top-0 with Higher Height and Moving Marquee */}
+        <div className="bg-gradient-to-r from-brand-red to-brand-blue text-white py-3.5 md:py-4 shadow-md sticky top-0 z-50 overflow-hidden flex items-center">
+          <marquee 
+            behavior="scroll" 
+            direction="left" 
+            scrollamount="6" 
+            className="w-full text-sm md:text-base font-black tracking-wide flex items-center"
+          >
+            <a 
+              href="https://wa.me/919511150925"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mx-12 hover:underline hover:text-emerald-300 transition-colors cursor-pointer"
+            >
+              <Megaphone size={18} className="animate-pulse shrink-0 text-white" />
+              <span>📢 विज्ञापन के लिए संपर्क करें (WhatsApp): +91 9511150925</span>
+            </a>
+            <a 
+              href="mailto:Tm24newsofficial@gmail.com"
+              className="inline-flex items-center gap-2 mx-12 hover:underline hover:text-indigo-200 transition-colors cursor-pointer"
+            >
+              <Mail size={18} className="shrink-0 text-white" />
+              <span>📧 ई-मेल: Tm24newsofficial@gmail.com</span>
+            </a>
+            <span className="inline-flex items-center gap-2 mx-12 text-zinc-100">
+              <Megaphone size={18} className="animate-pulse shrink-0 text-white" />
+              <span>🔥 देश और प्रदेश की हर बड़ी खबर सबसे पहले और सबसे तेज़!</span>
+            </span>
+            <a 
+              href="https://wa.me/919511150925"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mx-12 hover:underline hover:text-emerald-300 transition-colors cursor-pointer"
+            >
+              <Megaphone size={18} className="animate-pulse shrink-0 text-white" />
+              <span>📢 विज्ञापन के लिए संपर्क करें (WhatsApp): +91 9511150925</span>
+            </a>
+            <a 
+              href="mailto:Tm24newsofficial@gmail.com"
+              className="inline-flex items-center gap-2 mx-12 hover:underline hover:text-indigo-200 transition-colors cursor-pointer"
+            >
+              <Mail size={18} className="shrink-0 text-white" />
+              <span>📧 ई-मेल: Tm24newsofficial@gmail.com</span>
+            </a>
+            <span className="inline-flex items-center gap-2 mx-12 text-zinc-100">
+              <Megaphone size={18} className="animate-pulse shrink-0 text-white" />
+              <span>🔥 देश और प्रदेश की हर बड़ी खबर सबसे पहले और सबसे तेज़!</span>
+            </span>
+          </marquee>
+        </div>
         <Navbar />
         
 

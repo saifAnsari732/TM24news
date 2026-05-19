@@ -41,7 +41,7 @@ export default function Navbar() {
   ];
 
   return (
-    <header className={`sticky top-0 w-full z-40 transition-all duration-300 bg-white flex items-center ${
+    <header className={`sticky top-[48px] md:top-[56px] w-full z-40 transition-all duration-300 bg-white flex items-center ${
       scrolled ? 'shadow-md h-[70px] md:h-[85px]' : 'h-[90px] md:h-[115px]'
     }`}>
       <div className="container mx-auto px-4 md:px-6 h-full">
