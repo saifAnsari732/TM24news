@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Search } from 'lucide-react';
+import { Menu, X, Search, RotateCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../images/logo.png';
+import { NewsContext } from '../context/NewsContext';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const { loading, refreshNews } = useContext(NewsContext);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -86,6 +88,18 @@ export default function Navbar() {
               />
               <Search size={18} className="absolute left-3.5 text-zinc-400 pointer-events-none" />
             </form>
+
+            <button
+              onClick={() => refreshNews(true)}
+              disabled={loading}
+              title="ताज़ा खबरें लोड करें"
+              className="bg-gradient-to-r from-brand-red to-brand-blue text-white p-2.5 rounded-full hover:shadow-[0_4px_10px_rgba(0,38,152,0.3)] active:scale-95 transition-all flex items-center justify-center cursor-pointer shrink-0 disabled:opacity-75 group shadow-sm"
+            >
+              <RotateCw 
+                size={18} 
+                className={`${loading ? 'animate-spin' : 'group-hover:rotate-45 transition-transform duration-300'}`} 
+              />
+            </button>
           </div>
 
           {/* Mobile Toggle */}
@@ -122,8 +136,8 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
-              <div className="border-t border-zinc-100 pt-4 pb-2">
-                <form onSubmit={handleSearchSubmit} className="relative flex items-center w-full">
+              <div className="border-t border-zinc-100 pt-4 pb-2 flex items-center gap-3">
+                <form onSubmit={handleSearchSubmit} className="relative flex items-center flex-1">
                   <input
                     type="text"
                     placeholder="खबरें खोजें..."
@@ -133,6 +147,21 @@ export default function Navbar() {
                   />
                   <Search size={18} className="absolute left-4 text-zinc-400 pointer-events-none" />
                 </form>
+
+                <button
+                  onClick={() => {
+                    refreshNews(true);
+                    setIsOpen(false);
+                  }}
+                  disabled={loading}
+                  title="ताज़ा खबरें लोड करें"
+                  className="bg-gradient-to-r from-brand-red to-brand-blue text-white p-3 rounded-full hover:shadow-md active:scale-95 transition-all flex items-center justify-center shrink-0 disabled:opacity-75 shadow-sm"
+                >
+                  <RotateCw 
+                    size={20} 
+                    className={`${loading ? 'animate-spin' : ''}`} 
+                  />
+                </button>
               </div>
             </div>
           </motion.div>

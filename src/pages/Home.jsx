@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { PlayCircle, ArrowRight } from 'lucide-react';
-import { newsData, categories } from '../data/newsData';
+import { NewsContext } from '../context/NewsContext';
 import NewsCard from '../components/NewsCard';
 import SectionHeader from '../components/SectionHeader';
+import DummyAd from '../components/DummyAd';
+
+const SkeletonCard = () => (
+  <div className="bg-white rounded-xl overflow-hidden shadow-md animate-pulse border border-zinc-200 p-5 space-y-4">
+    <div className="bg-zinc-200 h-40 w-full rounded-lg"></div>
+    <div className="h-4 bg-zinc-200 rounded w-2/3"></div>
+    <div className="space-y-2">
+      <div className="h-3 bg-zinc-200 rounded w-full"></div>
+      <div className="h-3 bg-zinc-200 rounded w-5/6"></div>
+    </div>
+    <div className="h-8 bg-zinc-200 rounded w-full mt-4"></div>
+  </div>
+);
 
 export default function Home() {
-  const trendingNews = newsData.filter(news => news.trending);
+  const { news, loading } = useContext(NewsContext);
   
+  const trendingNews = news.filter(item => item.trending).slice(0, 4);
+  const activeCategories = [...new Set(news.map(item => item.category))].filter(cat => cat !== "अन्य").slice(0, 4);
+
   return (
     <div className="bg-zinc-50 min-h-screen">
       <section className="relative min-h-[75vh] flex flex-col items-center justify-center overflow-hidden bg-white ">
@@ -62,31 +78,63 @@ export default function Home() {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-16">
         
+        {/* Trending News Section */}
         <section className="mb-16">
           <SectionHeader title="ट्रेंडिंग न्यूज़" link="/latest" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {trendingNews.map((news) => (
-              <NewsCard key={news.id} news={news} />
-            ))}
-          </div>
+          {loading && news.length === 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[1, 2, 3, 4].map(n => <SkeletonCard key={n} />)}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {trendingNews.map((item) => (
+                <NewsCard key={item.id} news={item} />
+              ))}
+            </div>
+          )}
         </section>
 
+        {/* First Horizontal Ad Banner */}
+        <div className="mb-16">
+          <DummyAd type="banner" />
+        </div>
+
         {/* Categories Sections */}
-        {categories.slice(0, 4).map((category) => {
-          const catNews = newsData.filter(news => news.category === category);
-          if(catNews.length === 0) return null;
-          
-          return (
-            <section key={category} className="mb-16 bg-white p-8 rounded-2xl shadow-sm border border-zinc-100">
-              <SectionHeader title={category} link={`/category/${category}`} />
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {catNews.map((news) => (
-                  <NewsCard key={news.id} news={news} />
-                ))}
-              </div>
-            </section>
-          )
-        })}
+        {loading && news.length === 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {[1, 2, 3].map(n => <SkeletonCard key={n} />)}
+          </div>
+        ) : (
+          activeCategories.map((category, index) => {
+            const catNews = news.filter(item => item.category === category).slice(0, 3);
+            if (catNews.length === 0) return null;
+            
+            return (
+              <React.Fragment key={category}>
+                <section className="mb-16 bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-zinc-100">
+                  <SectionHeader title={category} link={`/category/${category}`} />
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {catNews.map((item) => (
+                      <NewsCard key={item.id} news={item} />
+                    ))}
+                  </div>
+                </section>
+                
+                {/* Visual Ad break after the first Category */}
+                {index === 0 && (
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+                    <div className="lg:col-span-2">
+                      <DummyAd type="banner" className="h-full" />
+                    </div>
+                    <div>
+                      <DummyAd type="card" className="h-full" />
+                    </div>
+                  </div>
+                )}
+              </React.Fragment>
+            );
+          })
+        )}
 
         {/* Videos Section */}
         <section className="mb-16 bg-brand-dark rounded-3xl p-8 md:p-12 text-white relative overflow-hidden">

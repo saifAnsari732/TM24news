@@ -14,12 +14,14 @@ import ScrollToTop from './components/ScrollToTop';
 import BreakingNewsTicker from './components/BreakingNewsTicker';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import { NewsProvider } from './context/NewsContext';
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <div className="flex flex-col min-h-screen">
+    <NewsProvider>
+      <Router>
+        <ScrollToTop />
+        <div className="flex flex-col min-h-screen">
         {/* Top Premium Animated Advertisement & Contact Strip - Sticky Top-0 with Higher Height and Moving Marquee */}
         <div className="bg-gradient-to-r from-brand-red to-brand-blue text-white py-3.5 md:py-4 shadow-md sticky top-0 z-50 overflow-hidden flex items-center">
           <marquee 
@@ -71,6 +73,7 @@ function App() {
           </marquee>
         </div>
         <Navbar />
+        <BreakingNewsTicker />
         
 
         <main className="flex-grow">
@@ -100,6 +103,7 @@ function App() {
         </a>
       </div>
     </Router>
+    </NewsProvider>
   );
 }
 

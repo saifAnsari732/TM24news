@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { newsData } from '../data/newsData';
+import { NewsContext } from '../context/NewsContext';
 
 export default function BreakingNewsTicker() {
-  const breakingNews = newsData.filter(news => news.breaking);
+  const { news } = useContext(NewsContext);
+  const breakingNews = news.filter(item => item.breaking);
 
   if (breakingNews.length === 0) return null;
 

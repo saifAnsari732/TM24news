@@ -79,7 +79,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold mb-1">पता</h3>
-                    <p className="text-zinc-400">मुख्य कार्यालय, नई दिल्ली, भारत</p>
+                    <p className="text-zinc-400">Alambag Lucknow UP</p>
                   </div>
                 </div>
               </div>
