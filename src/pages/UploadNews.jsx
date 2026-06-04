@@ -1023,14 +1023,14 @@ export default function UploadNews() {
               </div>
               
               {/* Tags and Keywords */}
-              <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm space-y-4">
+              <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm space-y-6 py-6">
                 <h3 className="text-lg font-black text-brand-dark border-b border-zinc-100 pb-2">
                   टैग्स और कीवर्ड्स (Tags & Keywords)
                 </h3>
                 
                 <div>
                   <label className="block text-zinc-700 font-bold mb-1.5 text-sm">सुझाए गए टैग्स (Templates)</label>
-                  <div className="flex flex-wrap gap-2 mb-3">
+                  <div className="flex flex-wrap gap-2 mb-3 py-2">
                     {["Breaking", "Exclusive", "Trending", "Special Report", "Update", "Viral", "Politics"].map(tag => (
                       <button
                         key={tag}
@@ -1048,7 +1048,7 @@ export default function UploadNews() {
                     ))}
                   </div>
                   
-                  <label className="block text-zinc-700 font-bold mb-1.5 text-sm">कस्टम टैग जोड़ें (Enter दबाएं)</label>
+                  <label className="block text-zinc-700 font-bold mb-1.5 text-sm py-2">कस्टम टैग जोड़ें (Enter दबाएं)</label>
                   <input
                     type="text"
                     placeholder="नया टैग लिखें और Enter दबाएं..."
