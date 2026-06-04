@@ -10,7 +10,7 @@ export default function GeminiChatbot() {
   const [isLoading, setIsLoading] = useState(false);
   const containerRef = useRef(null);
 
-  const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+  const API_KEY = "AQ.Ab8RN6Ka-2Uv3-UFHx8MnBck03cmiQ58oa2SUwAFBb7rqfcu_A";
   const scrollToBottom = () => {
     if (containerRef.current) {
       containerRef.current.scrollTo({
