@@ -220,7 +220,7 @@ export const newsData = [
     breaking: false
   }
 ];
-
+// df;kmh;ldzmn
 export const categories = [
   "राजनीति",
   "सामाजिक मुद्दे",
