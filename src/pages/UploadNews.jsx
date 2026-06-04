@@ -32,7 +32,7 @@ export default function UploadNews() {
       setIsAuthorized(true);
       setPassError('');
     } else {
-      setPassError('गलत पासवर्ड! कृपया सही एडमिन पासवर्ड दर्ज करें।');
+      setPassError('Incorrect password! Please enter the correct admin password.');
     }
   };
 
@@ -43,8 +43,8 @@ export default function UploadNews() {
 
   // States (for preview and form submissions)
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('मुख्य समाचार');
-  const [author, setAuthor] = useState('संपादक');
+  const [category, setCategory] = useState('Main News');
+  const [author, setAuthor] = useState('Editor');
   const [description, setDescription] = useState('');
   const [newsType, setNewsType] = useState('text'); // text or video
   const [mediaUrl, setMediaUrl] = useState('');
@@ -94,39 +94,39 @@ export default function UploadNews() {
   const [showBgColorPicker, setShowBgColorPicker] = useState(false);
 
   const categories = [
-    "मुख्य समाचार", "राजनीति", "व्यापार", "खेल", "तकनीक", 
-    "विज्ञान", "मनोरंजन", "स्वास्थ्य", "विश्व समाचार", 
-    "देश - प्रदेश", "पर्यावरण", "अन्य"
+    "Main News", "Politics", "Business", "Sports", "Technology", 
+    "Science", "Entertainment", "Health", "World News", 
+    "National - प्रNational", "Environment", "Other"
   ];
 
   // Presets text colors
   const textColors = [
     { name: 'Default', value: '#18181b', hex: 'bg-zinc-800' },
-    { name: 'काला', value: '#000000', hex: 'bg-black' },
-    { name: 'सफ़ेद', value: '#ffffff', hex: 'bg-white border border-zinc-200' },
-    { name: 'ग्रे', value: '#6b7280', hex: 'bg-gray-500' },
-    { name: 'लाल', value: '#ac0202', hex: 'bg-[#ac0202]' },
-    { name: 'नीला', value: '#002698', hex: 'bg-[#002698]' },
-    { name: 'हरा', value: '#16a34a', hex: 'bg-green-600' },
-    { name: 'नारंगी', value: '#ea580c', hex: 'bg-orange-600' },
-    { name: 'पीला', value: '#eab308', hex: 'bg-yellow-500' },
-    { name: 'गुलाबी', value: '#db2777', hex: 'bg-pink-600' },
-    { name: 'बैंगनी', value: '#7e22ce', hex: 'bg-purple-700' },
-    { name: 'टीयल', value: '#0f766e', hex: 'bg-teal-700' }
+    { name: 'Black', value: '#000000', hex: 'bg-black' },
+    { name: 'White', value: '#ffffff', hex: 'bg-white border border-zinc-200' },
+    { name: 'Gray', value: '#6b7280', hex: 'bg-gray-500' },
+    { name: 'Red', value: '#ac0202', hex: 'bg-[#ac0202]' },
+    { name: 'Blue', value: '#002698', hex: 'bg-[#002698]' },
+    { name: 'Green', value: '#16a34a', hex: 'bg-green-600' },
+    { name: 'Orange', value: '#ea580c', hex: 'bg-orange-600' },
+    { name: 'Yellow', value: '#eab308', hex: 'bg-yellow-500' },
+    { name: 'Pink', value: '#db2777', hex: 'bg-pink-600' },
+    { name: 'Purple', value: '#7e22ce', hex: 'bg-purple-700' },
+    { name: 'Teal', value: '#0f766e', hex: 'bg-teal-700' }
   ];
 
   // Presets background/highlight colors
   const bgColors = [
-    { name: 'कोई नहीं', value: 'transparent', hex: 'bg-white border border-zinc-300' },
-    { name: 'पीला', value: '#fef08a', hex: 'bg-yellow-200' },
-    { name: 'हरा', value: '#bbf7d0', hex: 'bg-green-200' },
-    { name: 'नीला', value: '#bfdbfe', hex: 'bg-blue-200' },
-    { name: 'लाल', value: '#fecaca', hex: 'bg-red-200' },
-    { name: 'नारंगी', value: '#ffedd5', hex: 'bg-orange-100' },
-    { name: 'बैंगनी', value: '#e9d5ff', hex: 'bg-purple-200' },
-    { name: 'गुलाबी', value: '#fbcfe8', hex: 'bg-pink-200' },
-    { name: 'ग्रे', value: '#e5e7eb', hex: 'bg-gray-200' },
-    { name: 'काला', value: '#000000', hex: 'bg-black' }
+    { name: 'None', value: 'transparent', hex: 'bg-white border border-zinc-300' },
+    { name: 'Yellow', value: '#fef08a', hex: 'bg-yellow-200' },
+    { name: 'Green', value: '#bbf7d0', hex: 'bg-green-200' },
+    { name: 'Blue', value: '#bfdbfe', hex: 'bg-blue-200' },
+    { name: 'Red', value: '#fecaca', hex: 'bg-red-200' },
+    { name: 'Orange', value: '#ffedd5', hex: 'bg-orange-100' },
+    { name: 'Purple', value: '#e9d5ff', hex: 'bg-purple-200' },
+    { name: 'Pink', value: '#fbcfe8', hex: 'bg-pink-200' },
+    { name: 'Gray', value: '#e5e7eb', hex: 'bg-gray-200' },
+    { name: 'Black', value: '#000000', hex: 'bg-black' }
   ];
 
   // Load configuration from localStorage on mount
@@ -215,7 +215,7 @@ export default function UploadNews() {
     }));
     localStorage.setItem('tm24_backend_url', backendUrl);
     localStorage.setItem('tm24_use_simulation', String(useSimulation));
-    alert("कॉन्फ़िगरेशन सेटिंग्स सुरक्षित कर ली गई हैं!");
+    alert("Configuration settings saved successfully!");
     fetchDrafts();
   };
 
@@ -235,9 +235,19 @@ export default function UploadNews() {
   };
 
   const handleInsertLink = () => {
-    const url = prompt("कृपया लिंक URL दर्ज करें:");
+    const url = prompt("Please enter link URL:");
     if (url) {
       handleEditorCommand('createLink', url);
+    }
+  };
+
+  const handleInsertAIContent = (htmlContent) => {
+    if (editorRef.current) {
+      const currentContent = editorRef.current.innerHTML;
+      const newContent = currentContent + (currentContent ? '<br/><br/>' : '') + htmlContent;
+      editorRef.current.innerHTML = newContent;
+      setEditorContent(newContent);
+      setSaveStatus('unsaved');
     }
   };
 
@@ -274,7 +284,7 @@ export default function UploadNews() {
 
     if (!ikPublicKey || !ikUrlEndpoint || !ikAuthEndpoint) {
       setIsUploading(false);
-      setUploadError("इमेजकिट क्रेडेंशियल्स (Public Key, URL Endpoint, Auth Endpoint) खाली हैं! कृपया नीचे 'API & ImageKit सेटिंग्स' में जाकर इन्हें भरें ताकि फाइल सीधे ImageKit पर अपलोड हो सके।");
+      setUploadError("ImageKit credentials (Public Key, URL Endpoint, Auth Endpoint) are empty! Please 'API & ImageKit settings' go below and fill them so the file can be uploaded directly to ImageKit.");
       setShowConfig(true); 
       return;
     }
@@ -314,7 +324,7 @@ export default function UploadNews() {
       setSaveStatus('unsaved');
     } catch (err) {
       console.error(err);
-      setUploadError(err.message || "अपलोड करने में त्रुटि हुई। कृपया सेटिंग्स जांचें।");
+      setUploadError(err.message || "अपलोड करने में त्रुटि हुई। कृपया settings जांचें।");
     } finally {
       setIsUploading(false);
     }
@@ -325,7 +335,7 @@ export default function UploadNews() {
     if (e) e.preventDefault();
 
     if (!title.trim() || title === '<br>') {
-      alert("कृपया खबर का शीर्षक दर्ज करें!");
+      alert("Please enter the news title!");
       return;
     }
 
@@ -335,7 +345,7 @@ export default function UploadNews() {
 
     const finalContent = editorContent.trim() || `<p>${description}</p>`;
 
-    const months = ["जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"];
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const dateObj = new Date();
     const formattedDate = `${dateObj.getDate()} ${months[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
 
@@ -345,7 +355,7 @@ export default function UploadNews() {
       content: editorContent.trim() || title.trim(),
       category,
       image: mediaUrl || "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80",
-      author: author || "संपादक",
+      author: author || "Editor",
       date: formattedDate,
       videoUrl: newsType === 'video' ? (videoUrl || mediaUrl) : '',
       location,
@@ -390,7 +400,7 @@ export default function UploadNews() {
       fetchDrafts();
     } catch (err) {
       console.error(err);
-      setDbError(err.message || 'डेटाबेस सर्वर से कनेक्ट करने में विफल। क्या आपका नोड सर्वर चालू है?');
+      setDbError(err.message || 'Failed to connect to the database server. Is your node server running?');
     } finally {
       setIsDbLoading(false);
     }
@@ -399,7 +409,7 @@ export default function UploadNews() {
   // Step 2: Publish Draft Live
   const handlePublishLive = async () => {
     if (!savedArticleId) {
-      alert("कृपया खबर को पहले डेटाबेस में सेव (Draft) करें!");
+      alert("Please save the news as a Draft in the database first!");
       return;
     }
     await publishSingleDraft(savedArticleId);
@@ -427,7 +437,7 @@ export default function UploadNews() {
           setSaveStatus('published');
           setIsDbLoading(false);
           fetchDrafts();
-          alert("ड्राफ्ट को सफलतापूर्वक वेबसाइट पर लाइव पब्लिश कर दिया गया है!");
+          alert("Draft has been successfully published live on the website!");
           resolve();
         }, 800);
       });
@@ -457,10 +467,10 @@ export default function UploadNews() {
         addArticle(articleWithFormattedId);
       }
       fetchDrafts();
-      alert("बधाई हो! आपकी खबर डेटाबेस से वेबसाइट पर लाइव पब्लिश हो चुकी है।");
+      alert("Congratulations! Your news has been published live from the database to the website.");
     } catch (err) {
       console.error(err);
-      setDbError(err.message || 'पब्लिश करने में त्रुटि हुई। कृपया सर्वर लॉग्स जांचें।');
+      setDbError(err.message || 'Error during publishing. Please check server logs.');
     } finally {
       setIsDbLoading(false);
     }
@@ -504,7 +514,7 @@ export default function UploadNews() {
     }
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    alert("ड्राफ्ट को फॉर्म एडिटर में लोड कर दिया गया है। आप बदलाव करके दोबारा सेव या पब्लिश कर सकते हैं!");
+    alert("Draft loaded into the form editor. You can make changes and save or publish again!");
   };
 
   if (!isAuthorized) {
@@ -516,10 +526,10 @@ export default function UploadNews() {
               <Lock className="h-8 w-8" />
             </div>
             <h2 className="mt-6 text-center text-3xl font-black text-brand-dark">
-              प्रशासक लॉगिन (Admin Login)
+              Admin Login
             </h2>
-            <p className="text-sm text-zinc-500 font-bold">
-              खबर अपलोड करने के लिए कृपया एडमिन पासवर्ड दर्ज करें।
+            <p className="text-base text-zinc-500 font-bold">
+              Please enter the admin password to upload news.
             </p>
           </div>
           
@@ -527,7 +537,7 @@ export default function UploadNews() {
             <div className="rounded-2xl shadow-sm">
               <div>
                 <label htmlFor="password" className="sr-only">
-                  पासवर्ड (Password)
+                  Password
                 </label>
                 <input
                   id="password"
@@ -536,8 +546,8 @@ export default function UploadNews() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="एडमिन पासवर्ड दर्ज करें"
-                  className="appearance-none rounded-xl relative block w-full px-4 py-3.5 border border-zinc-200 placeholder-zinc-400 text-zinc-800 font-bold focus:outline-none focus:ring-brand-blue focus:border-brand-blue focus:z-10 text-sm transition-all bg-zinc-50 focus:bg-white"
+                  placeholder="Enter admin password"
+                  className="appearance-none rounded-xl relative block w-full px-4 py-3.5 border border-zinc-200 placeholder-zinc-400 text-zinc-800 font-bold focus:outline-none focus:ring-brand-blue focus:border-brand-blue focus:z-10 text-base transition-all bg-zinc-50 focus:bg-white"
                 />
               </div>
             </div>
@@ -553,16 +563,16 @@ export default function UploadNews() {
               <button
                 type="button"
                 onClick={() => navigate('/')}
-                className="flex-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 font-bold py-3.5 px-4 rounded-xl text-sm transition-all cursor-pointer text-center"
+                className="flex-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 font-bold py-3.5 px-4 rounded-xl text-base transition-all cursor-pointer text-center"
               >
-                वापस होमपेज
+                Back to Homepage
               </button>
               
               <button
                 type="submit"
-                className="flex-1 bg-gradient-to-r from-brand-red to-brand-blue hover:from-brand-red-dark hover:to-brand-blue-dark text-white font-bold py-3.5 px-4 rounded-xl text-sm shadow-md hover:shadow-lg transition-all cursor-pointer text-center active:scale-95"
+                className="flex-1 bg-gradient-to-r from-brand-red to-brand-blue hover:from-brand-red-dark hover:to-brand-blue-dark text-white font-bold py-3.5 px-4 rounded-xl text-base shadow-md hover:shadow-lg transition-all cursor-pointer text-center active:scale-95"
               >
-                लॉगिन करें
+                Login
               </button>
             </div>
           </form>
@@ -578,23 +588,23 @@ export default function UploadNews() {
         {/* Status bar */}
         <div className="bg-white px-6 py-4 rounded-2xl border border-zinc-200 shadow-sm flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="text-zinc-600 font-bold text-sm">प्रकाशन स्थिति (Status):</span>
+            <span className="text-zinc-600 font-bold text-base">Publication Status:</span>
             {saveStatus === 'unsaved' && (
               <span className="bg-amber-100 text-amber-800 border border-amber-200 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5 animate-pulse">
                 <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-                असुरक्षित (Not Saved)
+                Not Saved
               </span>
             )}
             {saveStatus === 'draft' && (
               <span className="bg-blue-100 text-blue-800 border border-blue-200 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-blue-600"></span>
-                डेटाबेस ड्राफ्ट (Draft)
+                Database Draft
               </span>
             )}
             {saveStatus === 'published' && (
               <span className="bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-600 animate-ping"></span>
-                लाइव पब्लिश (Live)
+                Live Published
               </span>
             )}
           </div>
@@ -606,7 +616,7 @@ export default function UploadNews() {
               className="flex items-center gap-2 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 font-bold px-4 py-2 rounded-xl transition-all cursor-pointer text-xs"
             >
               <Eye size={16} />
-              <span>{isPreviewOpen ? 'एडिट करें' : 'लाइव प्रीव्यू देखें'}</span>
+              <span>{isPreviewOpen ? 'Edit' : 'View Live Preview'}</span>
             </button>
             
             {/* Step 1: Save Draft */}
@@ -620,7 +630,7 @@ export default function UploadNews() {
               }`}
             >
               <Save size={16} />
-              <span>{isDbLoading && saveStatus === 'unsaved' ? 'सेव हो रहा है...' : '1. Save to DB (Draft)'}</span>
+              <span>{isDbLoading && saveStatus === 'unsaved' ? 'Saving...' : '1. Save to DB (Draft)'}</span>
             </button>
 
             {/* Step 2: Publish Live */}
@@ -634,7 +644,7 @@ export default function UploadNews() {
               }`}
             >
               <Globe size={16} />
-              <span>{isDbLoading && saveStatus === 'draft' ? 'पब्लिश हो रहा है...' : '2. Publish Live'}</span>
+              <span>{isDbLoading && saveStatus === 'draft' ? 'Publishing...' : '2. Publish Live'}</span>
             </button>
           </div>
         </div>
@@ -643,10 +653,10 @@ export default function UploadNews() {
           <div className="bg-red-50 text-red-900 border border-red-200 rounded-2xl p-4 flex items-start gap-3">
             <AlertCircle className="text-red-600 w-5 h-5 shrink-0 mt-0.5" />
             <div>
-              <p className="font-bold text-sm">त्रुटि (Database Error):</p>
+              <p className="font-bold text-base">Error (Database Error):</p>
               <p className="text-xs font-semibold mt-1">{dbError}</p>
               <p className="text-xs font-medium text-zinc-500 mt-2">
-                * यदि आपके पास बैकएंड सर्वर रनिंग नहीं है, तो कृपया नीचे दिए गए "API कॉन्फ़िगरेशन" सेटिंग्स में जाकर **Simulation Mode** चालू करें ताकि आप बिना एरर के परीक्षण कर सकें।
+                * यदि आपके पास बैकएंड सर्वर रनिंग नहीं है, तो Please दिए गए "API Configuration" settings में जाकर **Simulation Mode** चालू करें ताकि आप बिना एरर के परीक्षण कर सकें।
               </p>
             </div>
           </div>
@@ -661,11 +671,11 @@ export default function UploadNews() {
                   {category}
                 </span>
                 <h1 className="text-2xl md:text-4xl font-black text-brand-dark mb-4 leading-tight">
-                  {title ? <span dangerouslySetInnerHTML={{ __html: title }} /> : 'बिना शीर्षक की खबर'}
+                  {title ? <span dangerouslySetInnerHTML={{ __html: title }} /> : 'Untitled News'}
                 </h1>
-                <div className="flex items-center gap-6 text-zinc-500 text-sm font-medium pb-4 border-b border-zinc-200">
-                  <span>लेखक: {author || 'संपादक'}</span>
-                  <span>दिनांक: आज</span>
+                <div className="flex items-center gap-6 text-zinc-500 text-base font-medium pb-4 border-b border-zinc-200">
+                  <span>Author: {author || 'Editor'}</span>
+                  <span>Date: Today</span>
                 </div>
               </div>
 
@@ -689,11 +699,11 @@ export default function UploadNews() {
               {/* Body */}
               <div className="prose prose-lg max-w-none prose-p:font-medium">
                 <p className="text-lg md:text-xl text-zinc-600 font-bold mb-6 border-l-4 border-brand-blue pl-4 leading-relaxed italic">
-                  {description ? <span dangerouslySetInnerHTML={{ __html: description }} /> : 'खबर का संक्षिप्त विवरण यहाँ दिखाई देगा...'}
+                  {description ? <span dangerouslySetInnerHTML={{ __html: description }} /> : 'News description will appear here...'}
                 </p>
                 <div 
                   className="rich-text-content text-zinc-800 text-base md:text-lg leading-relaxed space-y-6 font-normal"
-                  dangerouslySetInnerHTML={{ __html: editorContent || '<p className="text-zinc-400 font-medium">यहाँ खबर का विस्तृत लेख दिखाई देगा।</p>' }}
+                  dangerouslySetInnerHTML={{ __html: editorContent || '<p className="text-zinc-400 font-medium">Detailed news article will appear here.</p>' }}
                 />
               </div>
             </div>
@@ -710,18 +720,18 @@ export default function UploadNews() {
                 <div className="flex justify-between items-center border-b border-zinc-100 pb-2">
                   <h3 className="text-lg font-black text-brand-dark flex items-center gap-2">
                     <span className="w-1.5 h-6 bg-brand-red rounded-full"></span>
-                    <span>बुनियादी जानकारी</span>
+                    <span>Basic Information</span>
                   </h3>
                   {activeField !== 'content' && (
                     <span className="bg-amber-100 text-amber-800 text-[10px] font-black px-2 py-0.5 rounded-md uppercase tracking-wider">
-                      संपादन मोड: {activeField === 'title' ? 'शीर्षक (Title)' : 'विवरण (Description)'}
+                      Edit Mode: {activeField === 'title' ? 'Title' : 'Description'}
                     </span>
                   )}
                 </div>
                 
                 <div>
-                  <label className="block text-zinc-700 font-bold mb-1.5 text-sm">
-                    खबर का मुख्य शीर्षक (Title) <span className="text-red-500">*</span>
+                  <label className="block text-zinc-700 font-bold mb-1.5 text-base">
+                    खबर का मुख्य Title <span className="text-red-500">*</span>
                   </label>
                   
                   {/* Rich Text Title Editor */}
@@ -731,14 +741,14 @@ export default function UploadNews() {
                     suppressContentEditableWarning
                     onInput={handleTitleInput}
                     onFocus={() => setActiveField('title')}
-                    placeholder="खबर का मुख्य शीर्षक (Title) दर्ज करें"
+                    placeholder="खबर का मुख्य Title दर्ज करें"
                     className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue focus:bg-white rounded-xl py-3 px-4 font-bold text-zinc-800 focus:outline-none transition-all rich-text-content min-h-[50px]"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-zinc-700 font-bold mb-1.5 text-sm">खबर की श्रेणी (Category)</label>
+                    <label className="block text-zinc-700 font-bold mb-1.5 text-base">News Category</label>
                     <select
                       value={category}
                       onChange={(e) => { setCategory(e.target.value); setSaveStatus('unsaved'); }}
@@ -751,10 +761,10 @@ export default function UploadNews() {
                   </div>
                   
                   <div>
-                    <label className="block text-zinc-700 font-bold mb-1.5 text-sm">लेखक / रिपोर्टर</label>
+                    <label className="block text-zinc-700 font-bold mb-1.5 text-base">Author / Reporter</label>
                     <input
                       type="text"
-                      placeholder="उदा. विशेष रिपोर्टर, संपादक"
+                      placeholder="e.g., Special Reporter, Editor"
                       value={author}
                       onChange={(e) => { setAuthor(e.target.value); setSaveStatus('unsaved'); }}
                       className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue focus:bg-white rounded-xl py-3 px-4 font-semibold text-zinc-800 focus:outline-none transition-all"
@@ -763,24 +773,24 @@ export default function UploadNews() {
                   
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="block text-zinc-700 font-bold mb-1.5 text-xs">राज्य (State)</label>
+                      <label className="block text-zinc-700 font-bold mb-1.5 text-xs">State</label>
                       <select
                         value={selectedState}
                         onChange={(e) => { 
                           setSelectedState(e.target.value); 
-                          setLocation(e.target.value ? `अन्य, ${e.target.value}` : '');
+                          setLocation(e.target.value ? `Other, ${e.target.value}` : '');
                           setSaveStatus('unsaved'); 
                         }}
-                        className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue rounded-xl py-3 px-2 font-semibold text-zinc-700 text-sm focus:outline-none transition-all cursor-pointer"
+                        className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue rounded-xl py-3 px-2 font-semibold text-zinc-700 text-base focus:outline-none transition-all cursor-pointer"
                       >
-                        <option value="">राज्य चुनें...</option>
+                        <option value="">Select State...</option>
                         {Object.keys(indianStatesAndCities).map(st => (
                           <option key={st} value={st}>{st}</option>
                         ))}
                       </select>
                     </div>
                     <div>
-                      <label className="block text-zinc-700 font-bold mb-1.5 text-xs">शहर (City)</label>
+                      <label className="block text-zinc-700 font-bold mb-1.5 text-xs">City</label>
                       {selectedState ? (
                         <select
                           value={location.split(',')[0]}
@@ -788,9 +798,9 @@ export default function UploadNews() {
                             setLocation(`${e.target.value}, ${selectedState}`);
                             setSaveStatus('unsaved');
                           }}
-                          className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue rounded-xl py-3 px-2 font-semibold text-zinc-700 text-sm focus:outline-none transition-all cursor-pointer"
+                          className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue rounded-xl py-3 px-2 font-semibold text-zinc-700 text-base focus:outline-none transition-all cursor-pointer"
                         >
-                          <option value="">शहर चुनें...</option>
+                          <option value="">Select City...</option>
                           {indianStatesAndCities[selectedState]?.map(city => (
                             <option key={city} value={city}>{city}</option>
                           ))}
@@ -798,9 +808,9 @@ export default function UploadNews() {
                       ) : (
                         <input
                           type="text"
-                          placeholder="पहले राज्य चुनें"
+                          placeholder="Select State First"
                           disabled
-                          className="w-full bg-zinc-100 border border-zinc-200 rounded-xl py-3 px-3 font-semibold text-zinc-400 text-sm focus:outline-none"
+                          className="w-full bg-zinc-100 border border-zinc-200 rounded-xl py-3 px-3 font-semibold text-zinc-400 text-base focus:outline-none"
                         />
                       )}
                     </div>
@@ -808,8 +818,8 @@ export default function UploadNews() {
                 </div>
 
                 <div>
-                  <label className="block text-zinc-700 font-bold mb-1.5 text-sm">
-                    सोर्स लिंक (Source Link) <span className="text-zinc-400 font-normal text-xs">(वैकल्पिक)</span>
+                  <label className="block text-zinc-700 font-bold mb-1.5 text-base">
+                    Source Link <span className="text-zinc-400 font-normal text-xs">(Optional)</span>
                   </label>
                   <input
                     type="url"
@@ -827,11 +837,11 @@ export default function UploadNews() {
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-100 pb-3">
                   <h3 className="text-lg font-black text-brand-dark flex items-center gap-2">
                     <span className="w-1.5 h-6 bg-brand-blue rounded-full"></span>
-                    <span>खबर का मुख्य विवरण (Rich Text Editor)</span>
+                    <span>Main News Content (Rich Text Editor)</span>
                   </h3>
                   {activeField === 'content' && (
                     <span className="bg-blue-100 text-blue-800 text-[10px] font-black px-2 py-0.5 rounded-md uppercase tracking-wider">
-                      संपादन मोड: मुख्य लेख
+                      Edit Mode: मुख्य लेख
                     </span>
                   )}
                 </div>
@@ -871,7 +881,7 @@ export default function UploadNews() {
                   <button
                     type="button"
                     onMouseDown={(e) => { e.preventDefault(); handleInsertLink(); }}
-                    title="लिंक (Link)"
+                    title="Link"
                     className="p-2 hover:bg-zinc-200 rounded-lg transition-all text-zinc-700 hover:text-black active:scale-90"
                   >
                     <LinkIcon size={16} />
@@ -879,7 +889,7 @@ export default function UploadNews() {
                   <button
                     type="button"
                     onMouseDown={(e) => { e.preventDefault(); handleEditorCommand('insertText', '"'); }}
-                    title="डबल कोट्स (Quotes)"
+                    title="Double Quotes"
                     className="p-2 hover:bg-zinc-200 rounded-lg transition-all text-zinc-700 hover:text-black active:scale-90"
                   >
                     <Quote size={16} />
@@ -892,11 +902,11 @@ export default function UploadNews() {
                     <button
                       type="button"
                       onClick={() => { setShowTextColorPicker(!showTextColorPicker); setShowBgColorPicker(false); }}
-                      title="अक्षर का रंग (Text Color)"
+                      title="Text Color"
                       className="p-2 hover:bg-zinc-200 rounded-lg transition-all text-zinc-700 hover:text-black flex items-center gap-1 active:scale-95"
                     >
                       <Palette size={16} />
-                      <span className="text-[10px] font-bold">रंग</span>
+                      <span className="text-[10px] font-bold">Color</span>
                     </button>
                     {showTextColorPicker && (
                       <div className="absolute top-full left-0 mt-1 bg-white border border-zinc-200 rounded-xl p-2 shadow-xl z-50 grid grid-cols-4 gap-1.5 w-36">
@@ -922,11 +932,11 @@ export default function UploadNews() {
                     <button
                       type="button"
                       onClick={() => { setShowBgColorPicker(!showBgColorPicker); setShowTextColorPicker(false); }}
-                      title="हाइलाइटर रंग (Highlight/Background Color)"
+                      title="Highlightर Color (Highlight/Background Color)"
                       className="p-2 hover:bg-zinc-200 rounded-lg transition-all text-yellow-600 hover:text-yellow-700 flex items-center gap-1 active:scale-95"
                     >
                       <Highlighter size={16} />
-                      <span className="text-[10px] font-bold">हाइलाइट</span>
+                      <span className="text-[10px] font-bold">Highlight</span>
                     </button>
                     {showBgColorPicker && (
                       <div className="absolute top-full left-0 mt-1 bg-white border border-zinc-200 rounded-xl p-2 shadow-xl z-50 grid grid-cols-4 gap-1.5 w-36">
@@ -1001,11 +1011,11 @@ export default function UploadNews() {
                     defaultValue="p"
                     title="Format Block"
                   >
-                    <option value="p">सामान्य पैराग्राफ</option>
-                    <option value="h1">मुख्य शीर्षक (H1)</option>
-                    <option value="h2">उप-शीर्षक (H2)</option>
-                    <option value="h3">छोटा हेडर (H3)</option>
-                    <option value="blockquote">ब्लॉककोट</option>
+                    <option value="p">Normal Paragraph</option>
+                    <option value="h1">Main Heading (H1)</option>
+                    <option value="h2">Sub-Heading (H2)</option>
+                    <option value="h3">Small Header (H3)</option>
+                    <option value="blockquote">Blockquote</option>
                   </select>
                 </div>
 
@@ -1016,7 +1026,7 @@ export default function UploadNews() {
                   suppressContentEditableWarning
                   onInput={handleEditorInput}
                   onFocus={() => setActiveField('content')}
-                  placeholder="यहाँ मुख्य खबर का विस्तारपूर्वक विवरण टाइप करें..."
+                  placeholder="Type the detailed description of the main news here..."
                   className="w-full min-h-[300px] border border-zinc-200 rounded-xl p-4 bg-zinc-50 focus:bg-white focus:border-brand-blue outline-none text-zinc-800 text-lg leading-relaxed rich-text-content"
                   style={{ minHeight: '300px' }}
                 />
@@ -1025,11 +1035,11 @@ export default function UploadNews() {
               {/* Tags and Keywords */}
               <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm space-y-6 py-6">
                 <h3 className="text-lg font-black text-brand-dark border-b border-zinc-100 pb-2">
-                  टैग्स और कीवर्ड्स (Tags & Keywords)
+                  Tags & Keywords
                 </h3>
                 
                 <div>
-                  <label className="block text-zinc-700 font-bold mb-1.5 text-sm">सुझाए गए टैग्स (Templates)</label>
+                  <label className="block text-zinc-700 font-bold mb-1.5 text-base">Suggested Tags (Templates)</label>
                   <div className="flex flex-wrap gap-2 mb-3 py-2">
                     {["Breaking", "Exclusive", "Trending", "Special Report", "Update", "Viral", "Politics"].map(tag => (
                       <button
@@ -1048,10 +1058,10 @@ export default function UploadNews() {
                     ))}
                   </div>
                   
-                  <label className="block text-zinc-700 font-bold mb-1.5 text-sm py-2">कस्टम टैग जोड़ें (Enter दबाएं)</label>
+                  <label className="block text-zinc-700 font-bold mb-1.5 text-base py-2">Add Custom Tag (Press Enter)</label>
                   <input
                     type="text"
-                    placeholder="नया टैग लिखें और Enter दबाएं..."
+                    placeholder="Type new tag and press Enter..."
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {
                         e.preventDefault();
@@ -1082,12 +1092,12 @@ export default function UploadNews() {
                         }
                       }
                     }}
-                    className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue focus:bg-white rounded-xl py-2 px-4 font-semibold text-zinc-800 focus:outline-none transition-all mb-4 text-sm"
+                    className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue focus:bg-white rounded-xl py-2 px-4 font-semibold text-zinc-800 focus:outline-none transition-all mb-4 text-base"
                   />
 
-                  <label className="block text-zinc-700 font-bold mb-1.5 text-sm">चुने गए टैग्स</label>
+                  <label className="block text-zinc-700 font-bold mb-1.5 text-base">Selected Tags</label>
                   <div className="flex flex-wrap gap-2 min-h-[40px] p-2 bg-zinc-50 border border-zinc-200 rounded-xl mb-4">
-                    {tags.length === 0 && <span className="text-zinc-400 text-xs py-1">कोई टैग नहीं चुना गया है</span>}
+                    {tags.length === 0 && <span className="text-zinc-400 text-xs py-1">No tags selected</span>}
                     {tags.map(tag => (
                       <span key={tag} className="bg-brand-blue text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
                         {tag}
@@ -1103,11 +1113,11 @@ export default function UploadNews() {
                 </div>
 
                 <div>
-                  <label className="block text-zinc-700 font-bold mb-1.5 text-sm">
-                    खोज कीवर्ड्स (SEO Keywords)
+                  <label className="block text-zinc-700 font-bold mb-1.5 text-base">
+                    Search Keywords (SEO)
                   </label>
                   <textarea
-                    placeholder="खबर से जुड़े कीवर्ड्स कॉमा (,) लगाकर लिखें..."
+                    placeholder="Enter keywords separated by comma (,)..."
                     value={keywords}
                     onChange={(e) => { setKeywords(e.target.value); setSaveStatus('unsaved'); }}
                     className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue focus:bg-white rounded-xl py-3 px-4 font-medium text-zinc-700 focus:outline-none transition-all min-h-[80px]"
@@ -1122,7 +1132,7 @@ export default function UploadNews() {
               {/* Media Upload Area */}
               <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm space-y-4">
                 <h3 className="text-md font-black text-brand-dark border-b border-zinc-100 pb-2 flex items-center gap-2">
-                  <span>मीडिया फ़ाइल (Image / Video)</span>
+                  <span>Media File (Image / Video)</span>
                 </h3>
 
                 {/* Choose News Type */}
@@ -1130,27 +1140,27 @@ export default function UploadNews() {
                   <button
                     type="button"
                     onClick={() => { setNewsType('text'); setMediaUrl(''); setSaveStatus('unsaved'); }}
-                    className={`py-2.5 px-4 rounded-xl font-bold text-sm border flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                    className={`py-2.5 px-4 rounded-xl font-bold text-base border flex items-center justify-center gap-2 transition-all cursor-pointer ${
                       newsType === 'text' 
                         ? 'bg-brand-red text-white border-brand-red shadow-md' 
                         : 'bg-zinc-50 hover:bg-zinc-100 text-zinc-600 border-zinc-200'
                     }`}
                   >
                     <ImageIcon size={16} />
-                    <span>इमेज खबर</span>
+                    <span>Image News</span>
                   </button>
                   
                   <button
                     type="button"
                     onClick={() => { setNewsType('video'); setMediaUrl(''); setSaveStatus('unsaved'); }}
-                    className={`py-2.5 px-4 rounded-xl font-bold text-sm border flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                    className={`py-2.5 px-4 rounded-xl font-bold text-base border flex items-center justify-center gap-2 transition-all cursor-pointer ${
                       newsType === 'video' 
                         ? 'bg-brand-blue text-white border-brand-blue shadow-md' 
                         : 'bg-zinc-50 hover:bg-zinc-100 text-zinc-600 border-zinc-200'
                     }`}
                   >
                     <Video size={16} />
-                    <span>वीडियो खबर</span>
+                    <span>Video News</span>
                   </button>
                 </div>
 
@@ -1165,11 +1175,11 @@ export default function UploadNews() {
                   />
                   <div className="flex flex-col items-center justify-center gap-2 pointer-events-none">
                     <UploadCloud className="w-10 h-10 text-zinc-400" />
-                    <span className="font-bold text-sm text-zinc-700">
-                      {isUploading ? 'अपलोड की जा रही है...' : `फ़ाइल चुनें (${newsType === 'video' ? 'वीडियो' : 'इमेज'})`}
+                    <span className="font-bold text-base text-zinc-700">
+                      {isUploading ? 'Uploading...' : `Choose File (${newsType === 'video' ? 'Video' : 'Image'})`}
                     </span>
                     <span className="text-zinc-400 text-xs font-semibold">
-                      ImageKit API के ज़रिए अपलोड करें
+                      ImageKit API Upload via
                     </span>
                   </div>
                 </div>
@@ -1182,7 +1192,7 @@ export default function UploadNews() {
                         style={{ width: `${uploadProgress}%` }}
                       ></div>
                     </div>
-                    <div className="text-xs font-bold text-zinc-500 text-right">{uploadProgress}% अपलोड हुआ</div>
+                    <div className="text-xs font-bold text-zinc-500 text-right">{uploadProgress}% Uploaded</div>
                   </div>
                 )}
 
@@ -1190,7 +1200,7 @@ export default function UploadNews() {
                   <div className="bg-emerald-50 text-emerald-800 p-3 rounded-xl border border-emerald-100 flex items-center gap-2 text-xs font-bold">
                     <CheckCircle size={16} className="text-emerald-600 shrink-0" />
                     <span>
-                      फ़ाइल {!ikPublicKey ? 'सफलतापूर्वक सिमुलेट' : 'सफलतापूर्वक ImageKit पर'} अपलोड हो गई है!
+                      File {!ikPublicKey ? 'Simulated Successfully' : 'Successfully on ImageKit'} Uploaded!
                     </span>
                   </div>
                 )}
@@ -1208,7 +1218,7 @@ export default function UploadNews() {
                     <label className="block text-zinc-700 font-bold mb-1 text-xs">Generated CDN URL</label>
                     <input
                       type="url"
-                      placeholder="यहाँ इमेज/वीडियो का डायरेक्ट यूआरएल दिखेगा"
+                      placeholder="यहाँ Image/Video का डायरेक्ट यूआरएल दिखेगा"
                       value={mediaUrl}
                       onChange={(e) => { setMediaUrl(e.target.value); setSaveStatus('unsaved'); }}
                       className="w-full bg-zinc-100 border border-zinc-200 rounded-xl py-2 px-3 text-xs font-medium text-zinc-600 focus:outline-none"
@@ -1220,7 +1230,7 @@ export default function UploadNews() {
                       <label className="block text-zinc-700 font-bold mb-1 text-xs">YouTube or Alternative Video URL</label>
                       <input
                         type="url"
-                        placeholder="उदा. https://www.youtube.com/watch?v=..."
+                        placeholder="e.g. https://www.youtube.com/watch?v=..."
                         value={videoUrl}
                         onChange={(e) => { setVideoUrl(e.target.value); setSaveStatus('unsaved'); }}
                         className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue focus:bg-white rounded-xl py-2 px-3 text-xs font-semibold text-zinc-800 focus:outline-none transition-all"
@@ -1231,105 +1241,11 @@ export default function UploadNews() {
               </div>
 
               {/* AI Assistant */}
-              <GeminiChatbot />
+              <GeminiChatbot onInsertContent={handleInsertAIContent} />
 
               {/* API and ImageKit config panel */}
-              <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm space-y-4">
-                <button
-                  type="button"
-                  onClick={() => setShowConfig(!showConfig)}
-                  className="w-full flex items-center justify-between font-black text-sm text-zinc-700 cursor-pointer"
-                >
-                  <span className="flex items-center gap-2">
-                    <Settings size={16} className="text-zinc-500" />
-                    <span>API & ImageKit सेटिंग्स</span>
-                  </span>
-                  <span className="text-zinc-400">{showConfig ? 'छुपाएं [-]' : 'दिखाएं [+]'}</span>
-                </button>
-
-                {showConfig && (
-                  <div className="space-y-4 pt-2 border-t border-zinc-100 animate-slideDown">
-                    
-                    {/* Database Config */}
-                    <div className="border-b border-zinc-100 pb-3 space-y-2">
-                      <span className="block text-xs font-bold text-zinc-800 uppercase tracking-wide">डेटाबेस API सर्वर</span>
-                      
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="checkbox"
-                          id="useSim"
-                          checked={useSimulation}
-                          onChange={(e) => { setUseSimulation(e.target.checked); setSaveStatus('unsaved'); }}
-                          className="w-4 h-4 text-brand-blue focus:ring-brand-blue/20 cursor-pointer rounded"
-                        />
-                        <label htmlFor="useSim" className="text-xs font-bold text-zinc-700 cursor-pointer select-none">
-                          Simulation Mode (ऑफ़लाइन टेस्ट करें)
-                        </label>
-                      </div>
-
-                      {!useSimulation && (
-                        <div>
-                          <label className="block text-zinc-500 font-bold mb-1 text-[11px]">Backend Server URL</label>
-                          <input
-                            type="text"
-                            placeholder="उदा. http://localhost:5000/api"
-                            value={backendUrl}
-                            onChange={(e) => setBackendUrl(e.target.value)}
-                            className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue focus:bg-white rounded-xl py-2 px-3 text-xs font-semibold text-zinc-700 focus:outline-none"
-                          />
-                        </div>
-                      )}
-                    </div>
-
-                    {/* ImageKit config */}
-                    <div className="space-y-3">
-                      <span className="block text-xs font-bold text-zinc-800 uppercase tracking-wide">ImageKit Credentials</span>
-                      
-                      <div>
-                        <label className="block text-zinc-500 font-bold mb-1 text-[11px]">Public Key (पब्लिक की)</label>
-                        <input
-                          type="text"
-                          placeholder="public_abc123..."
-                          value={ikPublicKey}
-                          onChange={(e) => setIkPublicKey(e.target.value)}
-                          className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue focus:bg-white rounded-xl py-2 px-3 text-xs font-medium text-zinc-700 focus:outline-none"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-zinc-500 font-bold mb-1 text-[11px]">URL Endpoint (यूआरएल एंडपॉइंट)</label>
-                        <input
-                          type="text"
-                          placeholder="https://ik.imagekit.io/your_id"
-                          value={ikUrlEndpoint}
-                          onChange={(e) => setIkUrlEndpoint(e.target.value)}
-                          className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue focus:bg-white rounded-xl py-2 px-3 text-xs font-medium text-zinc-700 focus:outline-none"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-zinc-500 font-bold mb-1 text-[11px]">Express Auth Endpoint (ऑथ यूआरएल)</label>
-                        <input
-                          type="text"
-                          placeholder="http://localhost:5000/api/auth/imagekit"
-                          value={ikAuthEndpoint}
-                          onChange={(e) => setIkAuthEndpoint(e.target.value)}
-                          className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue focus:bg-white rounded-xl py-2 px-3 text-xs font-medium text-zinc-700 focus:outline-none"
-                        />
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={saveConfig}
-                      className="w-full bg-zinc-800 text-white font-bold py-2 rounded-xl text-xs hover:bg-black active:scale-95 transition-all cursor-pointer"
-                    >
-                      कॉन्फ़िगरेशन सेव करें
-                    </button>
-                  </div>
-                )}
-              </div>
-
+      
+      
             </div>
 
           </div>
@@ -1341,10 +1257,10 @@ export default function UploadNews() {
             <div>
               <h3 className="text-xl font-black text-brand-dark flex items-center gap-2">
                 <FileText className="text-brand-blue w-6 h-6" />
-                <span>अप्रकाशित समाचार ड्राफ्ट्स (Unpublished News Drafts)</span>
+                <span>Unpublished News Drafts</span>
               </h3>
               <p className="text-zinc-500 text-xs font-semibold mt-1">
-                नीचे उन सभी खबरों की सूची है जो डेटाबेस में सेव हैं पर अभी तक लाइव पब्लिश नहीं हुई हैं।
+                Below is the list of all news saved in the database but not yet published live.
               </p>
             </div>
             
@@ -1352,7 +1268,7 @@ export default function UploadNews() {
               onClick={fetchDrafts}
               className="self-start sm:self-auto bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-xs font-bold py-2 px-4 rounded-xl transition-all cursor-pointer shadow-sm"
             >
-              लिस्ट रीफ्रेश करें
+              Refresh List
             </button>
           </div>
 
@@ -1360,10 +1276,10 @@ export default function UploadNews() {
             <div className="bg-red-50 text-red-900 border border-red-200 rounded-2xl p-4 flex items-start gap-3">
               <AlertCircle className="text-red-600 w-5 h-5 shrink-0 mt-0.5" />
               <div>
-                <p className="font-bold text-sm">त्रुटि (Draft Fetch Error):</p>
+                <p className="font-bold text-base">Error (Draft Fetch Error):</p>
                 <p className="text-xs font-semibold mt-1">{draftsError}</p>
                 <p className="text-xs font-medium text-zinc-500 mt-2">
-                  * यदि आपने अभी तक अपने नोड एक्सप्रेस बैकएंड में <strong>GET '/news/drafts'</strong> एंडपॉइंट नहीं जोड़ा है, तो कृपया <strong>backend_code_reference.md</strong> में दिए गए कोड को राउटर फ़ाइल में जोड़ें और सर्वर रीस्टार्ट करें।
+                  * If you have not yet added the <strong>GET '/news/drafts'</strong> endpoint in your node express backend, please add the code provided in <strong>backend_code_reference.md</strong> में दिए गए कोड को राउटर File में जोड़ें और सर्वर रीस्टार्ट करें।
                 </p>
               </div>
             </div>
@@ -1372,13 +1288,13 @@ export default function UploadNews() {
           {draftsLoading ? (
             <div className="py-12 flex flex-col items-center justify-center gap-3">
               <div className="w-8 h-8 border-4 border-zinc-300 border-t-brand-blue rounded-full animate-spin"></div>
-              <p className="text-zinc-500 text-xs font-bold">ड्राफ्ट लोडिंग हो रहे हैं...</p>
+              <p className="text-zinc-500 text-xs font-bold">Loading drafts...</p>
             </div>
           ) : drafts.length === 0 ? (
             <div className="py-12 text-center border border-dashed border-zinc-200 rounded-2xl bg-zinc-50/50">
               <FileText className="mx-auto text-zinc-300 w-12 h-12 mb-3" />
-              <p className="text-zinc-500 font-bold text-sm">कोई अप्रकाशित ड्राफ्ट नहीं मिला</p>
-              <p className="text-zinc-400 text-xs mt-1">सभी खबरें लाइव पब्लिश हैं या कोई ड्राफ्ट सेव नहीं है।</p>
+              <p className="text-zinc-500 font-bold text-base">No unpublished drafts found</p>
+              <p className="text-zinc-400 text-xs mt-1">All news are published live or no draft is saved.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1413,7 +1329,7 @@ export default function UploadNews() {
                   </div>
 
                   <div className="flex items-center justify-between border-t border-zinc-100 pt-3.5 mt-1 gap-2">
-                    <span className="text-[10px] text-zinc-400 font-medium">लेखक: {draft.author}</span>
+                    <span className="text-[10px] text-zinc-400 font-medium">Author: {draft.author}</span>
                     
                     <div className="flex items-center gap-2 shrink-0">
                       {/* Action 1: Load into editor */}
@@ -1421,7 +1337,7 @@ export default function UploadNews() {
                         onClick={() => loadDraftIntoEditor(draft)}
                         className="bg-white hover:bg-zinc-100 border border-zinc-200 text-zinc-600 text-[11px] font-bold px-3 py-1.5 rounded-lg active:scale-95 transition-all cursor-pointer shadow-sm"
                       >
-                        एडिट करें
+                        Edit
                       </button>
                       
                       {/* Action 2: Publish Directly from list */}
@@ -1430,7 +1346,7 @@ export default function UploadNews() {
                         className="bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-bold px-3.5 py-1.5 rounded-lg active:scale-95 transition-all cursor-pointer shadow flex items-center gap-1"
                       >
                         <Globe size={11} />
-                        <span>लाइव करें</span>
+                        <span>Make Live</span>
                       </button>
                     </div>
                   </div>

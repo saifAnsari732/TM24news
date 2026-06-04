@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageSquare, X, Send, Bot, User, Loader2 } from 'lucide-react';
+import { MessageSquare, X, Send, Bot, User, Loader2, PlusCircle } from 'lucide-react';
 
-export default function GeminiChatbot() {
+export default function GeminiChatbot({ onInsertContent }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     { text: "नमस्ते! मैं TM24news का AI असिस्टेंट हूँ। मैं आपको न्यूज़ का टाइटल, कीवर्ड्स और कंटेंट लिखने में मदद कर सकता हूँ। आप मुझसे क्या पूछना चाहेंगे?", sender: 'bot' }
@@ -10,7 +10,7 @@ export default function GeminiChatbot() {
   const [isLoading, setIsLoading] = useState(false);
   const containerRef = useRef(null);
 
-  const API_KEY ="AQ.Ab8RN6I1BHBsJg-DVEA2Ss3ewPH6Cl_SuEAQlL6UCIBUIh6efQ";
+  const API_KEY ="AQ.Ab8RN6Iych1FQlpsdPw3UTN3VmrzxvJ0eSG-OySXvDo3aKvLKQ";
   const scrollToBottom = () => {
     if (containerRef.current) {
       containerRef.current.scrollTo({
@@ -113,7 +113,19 @@ export default function GeminiChatbot() {
             </div>
             <div className={`p-3 rounded-2xl max-w-[80%] text-sm shadow-sm ${msg.sender === 'user' ? 'bg-indigo-600 text-white rounded-tr-sm' : 'bg-white border border-zinc-200 text-zinc-800 rounded-tl-sm'}`}>
               {msg.sender === 'bot' ? (
-                <div className="prose prose-sm prose-p:my-1 prose-a:text-blue-600 max-w-none" dangerouslySetInnerHTML={{ __html: msg.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*/g, '').replace(/\n/g, '<br/>') }} />
+                <div className="relative group flex flex-col gap-2">
+                  <div className="prose prose-sm prose-p:my-1 prose-a:text-blue-600 max-w-none" dangerouslySetInnerHTML={{ __html: msg.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*/g, '').replace(/\n/g, '<br/>') }} />
+                  {onInsertContent && index > 0 && (
+                    <button 
+                      onClick={() => onInsertContent(msg.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*/g, '').replace(/\n/g, '<br/>'))}
+                      className="self-end text-xs bg-indigo-50 text-indigo-700 px-2 py-1 rounded flex items-center gap-1 hover:bg-indigo-100 transition-colors border border-indigo-100"
+                      title="एडीटर में डालें (Insert to Editor)"
+                      type="button"
+                    >
+                      <PlusCircle size={12} /> टेक्स्ट एडीटर में डालें
+                    </button>
+                  )}
+                </div>
               ) : (
                 msg.text
               )}
@@ -140,13 +152,13 @@ export default function GeminiChatbot() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="यहाँ टाइप करें..."
-          className="flex-1 px-4 py-2 border border-zinc-300 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-sm"
+          className="flex-1 px-4 py-2 border border-zinc-300 rounded-xl focus:outline-none border-indigo-500 ring-1 ring-indigo-500 text-sm"
           disabled={isLoading}
         />
         <button 
           type="submit"
           disabled={isLoading || !input.trim()}
-          className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-zinc-300 text-white p-2.5 rounded-xl transition-all flex items-center justify-center"
+          className="bg-indigo-600 hover:bg-indigo-700 bg-zinc-300 text-white p-2.5 rounded-xl transition-all flex items-center justify-center"
         >
           <Send size={18} />
         </button>
