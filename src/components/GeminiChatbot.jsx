@@ -10,8 +10,7 @@ export default function GeminiChatbot() {
   const [isLoading, setIsLoading] = useState(false);
   const containerRef = useRef(null);
 
-  const API_KEY = "AIzaSyByIWhGIn1AkGroPcxJF7n5kLlufcp8t3U";
-
+  const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
   const scrollToBottom = () => {
     if (containerRef.current) {
       containerRef.current.scrollTo({
@@ -20,6 +19,7 @@ export default function GeminiChatbot() {
       });
     }
   };
+  
 
   useEffect(() => {
     scrollToBottom();

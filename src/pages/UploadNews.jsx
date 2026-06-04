@@ -328,10 +328,7 @@ export default function UploadNews() {
       alert("कृपया खबर का शीर्षक दर्ज करें!");
       return;
     }
-    if (!description.trim() || description === '<br>') {
-      alert("कृपया संक्षिप्त विवरण दर्ज करें!");
-      return;
-    }
+
 
     setIsDbLoading(true);
     setDbError('');
@@ -344,8 +341,8 @@ export default function UploadNews() {
 
     const payload = {
       title: title.trim(),
-      description: description.trim(),
-      content: finalContent,
+      description: description.trim() || (editorContent.trim() ? editorContent.replace(/<[^>]*>?/gm, '').substring(0, 150) + '...' : title.trim()),
+      content: editorContent.trim() || title.trim(),
       category,
       image: mediaUrl || "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80",
       author: author || "संपादक",
@@ -823,22 +820,6 @@ export default function UploadNews() {
                   />
                 </div>
 
-                <div>
-                  <label className="block text-zinc-700 font-bold mb-1.5 text-sm">
-                    संक्षिप्त विवरण (Short Description) <span className="text-red-500">*</span>
-                  </label>
-                  
-                  {/* Rich Text Description Editor */}
-                  <div
-                    ref={descriptionRef}
-                    contentEditable
-                    suppressContentEditableWarning
-                    onInput={handleDescriptionInput}
-                    onFocus={() => setActiveField('description')}
-                    placeholder="खबर का संक्षिप्त विवरण दर्ज करें (यह होमपेज पर दिखाई देगा)"
-                    className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue focus:bg-white rounded-xl py-3 px-4 font-medium text-zinc-700 focus:outline-none transition-all rich-text-content min-h-[90px]"
-                  />
-                </div>
               </div>
 
               {/* Rich Text Content Editor */}
