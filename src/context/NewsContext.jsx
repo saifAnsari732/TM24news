@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { newsData as mockNewsData } from '../data/newsData';
+import { API_BASE_URL } from '../services/api';
 
 export const NewsContext = createContext();
 
@@ -87,7 +88,7 @@ export const NewsProvider = ({ children }) => {
     setError(null);
     
     // Check custom backend configurations
-    const savedBackendUrl = localStorage.getItem('tm24_backend_url') || 'https://kisanteamweb.it.com/api';
+    const savedBackendUrl = API_BASE_URL; // or localStorage.getItem('tm24_backend_url')
     const isSimMode = localStorage.getItem('tm24_use_simulation') === 'true';
 
     let dbArticles = [];

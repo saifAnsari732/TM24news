@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { 
   Bold, Italic, Underline, Highlighter, List, ListOrdered, 
   AlignLeft, AlignCenter, AlignRight, Image as ImageIcon, Video, 
-  UploadCloud, Eye, Save, Heading, Plus, Settings, AlertCircle, CheckCircle, Info, Globe, Palette, FileText, Send, Lock
+  UploadCloud, Eye, Save, Heading, Plus, Settings, AlertCircle, CheckCircle, Info, Globe, Palette, FileText, Send, Lock, Link as LinkIcon, Quote
 } from 'lucide-react';
 import { NewsContext } from '../context/NewsContext';
+import GeminiChatbot from '../components/GeminiChatbot';
+import { API_BASE_URL, IMAGEKIT_AUTH_URL } from '../services/api';
+import { indianStatesAndCities } from '../data/locations';
 
 export default function UploadNews() {
   const { addArticle, setIsAdminLoggedIn } = useContext(NewsContext);
@@ -47,6 +50,13 @@ export default function UploadNews() {
   const [mediaUrl, setMediaUrl] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
   const [editorContent, setEditorContent] = useState('');
+  
+  // New State variables
+  const [selectedState, setSelectedState] = useState('');
+  const [location, setLocation] = useState('');
+  const [tags, setTags] = useState([]);
+  const [keywords, setKeywords] = useState('');
+  const [sourceLink, setSourceLink] = useState('');
 
   // Drafts list state
   const [drafts, setDrafts] = useState([]);
@@ -63,13 +73,13 @@ export default function UploadNews() {
   const [dbError, setDbError] = useState('');
 
   // Server URL Configuration
-  const [backendUrl, setBackendUrl] = useState('https://kisanteamweb.it.com/api');
+  const [backendUrl, setBackendUrl] = useState(API_BASE_URL);
   const [useSimulation, setUseSimulation] = useState(false); // Default to live database server first
 
   // ImageKit states
   const [ikPublicKey, setIkPublicKey] = useState('public_42PJ3Dfu5r83X7iIyJ3F8qthmcM=');
   const [ikUrlEndpoint, setIkUrlEndpoint] = useState('https://ik.imagekit.io/4eqyb4rwe');
-  const [ikAuthEndpoint, setIkAuthEndpoint] = useState('https://kisanteamweb.it.com/api/auth/imagekit');
+  const [ikAuthEndpoint, setIkAuthEndpoint] = useState(IMAGEKIT_AUTH_URL);
   const [showConfig, setShowConfig] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -93,11 +103,16 @@ export default function UploadNews() {
   const textColors = [
     { name: 'Default', value: '#18181b', hex: 'bg-zinc-800' },
     { name: 'काला', value: '#000000', hex: 'bg-black' },
+    { name: 'सफ़ेद', value: '#ffffff', hex: 'bg-white border border-zinc-200' },
+    { name: 'ग्रे', value: '#6b7280', hex: 'bg-gray-500' },
     { name: 'लाल', value: '#ac0202', hex: 'bg-[#ac0202]' },
     { name: 'नीला', value: '#002698', hex: 'bg-[#002698]' },
     { name: 'हरा', value: '#16a34a', hex: 'bg-green-600' },
     { name: 'नारंगी', value: '#ea580c', hex: 'bg-orange-600' },
-    { name: 'पीला', value: '#eab308', hex: 'bg-yellow-500' }
+    { name: 'पीला', value: '#eab308', hex: 'bg-yellow-500' },
+    { name: 'गुलाबी', value: '#db2777', hex: 'bg-pink-600' },
+    { name: 'बैंगनी', value: '#7e22ce', hex: 'bg-purple-700' },
+    { name: 'टीयल', value: '#0f766e', hex: 'bg-teal-700' }
   ];
 
   // Presets background/highlight colors
@@ -108,7 +123,10 @@ export default function UploadNews() {
     { name: 'नीला', value: '#bfdbfe', hex: 'bg-blue-200' },
     { name: 'लाल', value: '#fecaca', hex: 'bg-red-200' },
     { name: 'नारंगी', value: '#ffedd5', hex: 'bg-orange-100' },
-    { name: 'बैंगनी', value: '#e9d5ff', hex: 'bg-purple-200' }
+    { name: 'बैंगनी', value: '#e9d5ff', hex: 'bg-purple-200' },
+    { name: 'गुलाबी', value: '#fbcfe8', hex: 'bg-pink-200' },
+    { name: 'ग्रे', value: '#e5e7eb', hex: 'bg-gray-200' },
+    { name: 'काला', value: '#000000', hex: 'bg-black' }
   ];
 
   // Load configuration from localStorage on mount
@@ -125,9 +143,9 @@ export default function UploadNews() {
       }
     }
     const savedBackend = localStorage.getItem('tm24_backend_url');
-    if (savedBackend) {
-      setBackendUrl(savedBackend);
-    }
+    // if (savedBackend) {
+    //   setBackendUrl(savedBackend);
+    // }
     const savedSim = localStorage.getItem('tm24_use_simulation');
     if (savedSim !== null) {
       setUseSimulation(savedSim === 'true');
@@ -214,6 +232,13 @@ export default function UploadNews() {
       setEditorContent(editorRef.current.innerHTML);
     }
     setSaveStatus('unsaved');
+  };
+
+  const handleInsertLink = () => {
+    const url = prompt("कृपया लिंक URL दर्ज करें:");
+    if (url) {
+      handleEditorCommand('createLink', url);
+    }
   };
 
   const handleTitleInput = () => {
@@ -325,7 +350,11 @@ export default function UploadNews() {
       image: mediaUrl || "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80",
       author: author || "संपादक",
       date: formattedDate,
-      videoUrl: newsType === 'video' ? (videoUrl || mediaUrl) : ''
+      videoUrl: newsType === 'video' ? (videoUrl || mediaUrl) : '',
+      location,
+      tags,
+      keywords,
+      link: sourceLink
     };
 
     if (useSimulation) {
@@ -458,6 +487,19 @@ export default function UploadNews() {
     setAuthor(article.author);
     setMediaUrl(article.image);
     setVideoUrl(article.videoUrl || '');
+    setLocation(article.location || '');
+    if (article.location) {
+      const parts = article.location.split(', ');
+      if (parts.length > 1) {
+        const st = parts[1].trim();
+        if (Object.keys(indianStatesAndCities).includes(st)) {
+          setSelectedState(st);
+        }
+      }
+    }
+    setTags(article.tags || []);
+    setKeywords(article.keywords || '');
+    setSourceLink(article.link || '');
     if (article.videoUrl) {
       setNewsType('video');
     } else {
@@ -534,7 +576,7 @@ export default function UploadNews() {
 
   return (
     <div className="bg-zinc-50 min-h-screen py-10">
-      <div className="container mx-auto px-4 max-w-5xl space-y-10">
+      <div className="container mx-auto px-4 max-w-[1500px] space-y-10">
         
         {/* Status bar */}
         <div className="bg-white px-6 py-4 rounded-2xl border border-zinc-200 shadow-sm flex flex-wrap items-center justify-between gap-4">
@@ -661,10 +703,10 @@ export default function UploadNews() {
           </div>
         ) : (
           /* Editor Layout */
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
             
-            {/* Form Fields (2 Columns) */}
-            <div className="lg:col-span-2 space-y-6">
+            {/* Form Fields (Left Column - 60%) */}
+            <div className="lg:col-span-3 space-y-6">
               
               {/* Basic Fields */}
               <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm space-y-4">
@@ -697,7 +739,7 @@ export default function UploadNews() {
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-zinc-700 font-bold mb-1.5 text-sm">खबर की श्रेणी (Category)</label>
                     <select
@@ -721,6 +763,64 @@ export default function UploadNews() {
                       className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue focus:bg-white rounded-xl py-3 px-4 font-semibold text-zinc-800 focus:outline-none transition-all"
                     />
                   </div>
+                  
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="block text-zinc-700 font-bold mb-1.5 text-xs">राज्य (State)</label>
+                      <select
+                        value={selectedState}
+                        onChange={(e) => { 
+                          setSelectedState(e.target.value); 
+                          setLocation(e.target.value ? `अन्य, ${e.target.value}` : '');
+                          setSaveStatus('unsaved'); 
+                        }}
+                        className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue rounded-xl py-3 px-2 font-semibold text-zinc-700 text-sm focus:outline-none transition-all cursor-pointer"
+                      >
+                        <option value="">राज्य चुनें...</option>
+                        {Object.keys(indianStatesAndCities).map(st => (
+                          <option key={st} value={st}>{st}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-zinc-700 font-bold mb-1.5 text-xs">शहर (City)</label>
+                      {selectedState ? (
+                        <select
+                          value={location.split(',')[0]}
+                          onChange={(e) => {
+                            setLocation(`${e.target.value}, ${selectedState}`);
+                            setSaveStatus('unsaved');
+                          }}
+                          className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue rounded-xl py-3 px-2 font-semibold text-zinc-700 text-sm focus:outline-none transition-all cursor-pointer"
+                        >
+                          <option value="">शहर चुनें...</option>
+                          {indianStatesAndCities[selectedState]?.map(city => (
+                            <option key={city} value={city}>{city}</option>
+                          ))}
+                        </select>
+                      ) : (
+                        <input
+                          type="text"
+                          placeholder="पहले राज्य चुनें"
+                          disabled
+                          className="w-full bg-zinc-100 border border-zinc-200 rounded-xl py-3 px-3 font-semibold text-zinc-400 text-sm focus:outline-none"
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-zinc-700 font-bold mb-1.5 text-sm">
+                    सोर्स लिंक (Source Link) <span className="text-zinc-400 font-normal text-xs">(वैकल्पिक)</span>
+                  </label>
+                  <input
+                    type="url"
+                    placeholder="https://..."
+                    value={sourceLink}
+                    onChange={(e) => { setSourceLink(e.target.value); setSaveStatus('unsaved'); }}
+                    className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue focus:bg-white rounded-xl py-3 px-4 font-semibold text-zinc-800 focus:outline-none transition-all"
+                  />
                 </div>
 
                 <div>
@@ -784,6 +884,26 @@ export default function UploadNews() {
                     <Underline size={16} />
                   </button>
                   
+                  <span className="w-[1px] h-6 bg-zinc-300 mx-1"></span>
+
+                  {/* LINK & QUOTE */}
+                  <button
+                    type="button"
+                    onMouseDown={(e) => { e.preventDefault(); handleInsertLink(); }}
+                    title="लिंक (Link)"
+                    className="p-2 hover:bg-zinc-200 rounded-lg transition-all text-zinc-700 hover:text-black active:scale-90"
+                  >
+                    <LinkIcon size={16} />
+                  </button>
+                  <button
+                    type="button"
+                    onMouseDown={(e) => { e.preventDefault(); handleEditorCommand('insertText', '"'); }}
+                    title="डबल कोट्स (Quotes)"
+                    className="p-2 hover:bg-zinc-200 rounded-lg transition-all text-zinc-700 hover:text-black active:scale-90"
+                  >
+                    <Quote size={16} />
+                  </button>
+
                   <span className="w-[1px] h-6 bg-zinc-300 mx-1"></span>
 
                   {/* 1. TEXT COLOR PICKER */}
@@ -920,10 +1040,103 @@ export default function UploadNews() {
                   style={{ minHeight: '300px' }}
                 />
               </div>
+              
+              {/* Tags and Keywords */}
+              <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm space-y-4">
+                <h3 className="text-lg font-black text-brand-dark border-b border-zinc-100 pb-2">
+                  टैग्स और कीवर्ड्स (Tags & Keywords)
+                </h3>
+                
+                <div>
+                  <label className="block text-zinc-700 font-bold mb-1.5 text-sm">सुझाए गए टैग्स (Templates)</label>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {["Breaking", "Exclusive", "Trending", "Special Report", "Update", "Viral", "Politics"].map(tag => (
+                      <button
+                        key={tag}
+                        type="button"
+                        onClick={() => {
+                          if (!tags.includes(tag)) {
+                            setTags([...tags, tag]);
+                            setSaveStatus('unsaved');
+                          }
+                        }}
+                        className="bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-xs font-bold px-3 py-1 rounded-full transition-all cursor-pointer"
+                      >
+                        + {tag}
+                      </button>
+                    ))}
+                  </div>
+                  
+                  <label className="block text-zinc-700 font-bold mb-1.5 text-sm">कस्टम टैग जोड़ें (Enter दबाएं)</label>
+                  <input
+                    type="text"
+                    placeholder="नया टैग लिखें और Enter दबाएं..."
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const val = e.target.value;
+                        if (!val.trim()) return;
+
+                        let newTags = [];
+                        if (val.includes(',')) {
+                            newTags = val.split(',').map(t => t.trim());
+                        } else if (val.includes('#')) {
+                            newTags = val.split(' ').map(t => t.replace(/#/g, '').trim());
+                        } else {
+                            newTags = [val.trim()];
+                        }
+                        
+                        newTags = newTags.filter(t => t !== '');
+                        
+                        if (newTags.length > 0) {
+                          setTags(prev => {
+                            const updated = [...prev];
+                            newTags.forEach(t => {
+                               if (!updated.includes(t)) updated.push(t);
+                            });
+                            return updated;
+                          });
+                          e.target.value = '';
+                          setSaveStatus('unsaved');
+                        }
+                      }
+                    }}
+                    className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue focus:bg-white rounded-xl py-2 px-4 font-semibold text-zinc-800 focus:outline-none transition-all mb-4 text-sm"
+                  />
+
+                  <label className="block text-zinc-700 font-bold mb-1.5 text-sm">चुने गए टैग्स</label>
+                  <div className="flex flex-wrap gap-2 min-h-[40px] p-2 bg-zinc-50 border border-zinc-200 rounded-xl mb-4">
+                    {tags.length === 0 && <span className="text-zinc-400 text-xs py-1">कोई टैग नहीं चुना गया है</span>}
+                    {tags.map(tag => (
+                      <span key={tag} className="bg-brand-blue text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+                        {tag}
+                        <button type="button" onClick={() => {
+                          setTags(tags.filter(t => t !== tag));
+                          setSaveStatus('unsaved');
+                        }} className="hover:text-red-300 cursor-pointer">
+                          &times;
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-zinc-700 font-bold mb-1.5 text-sm">
+                    खोज कीवर्ड्स (SEO Keywords)
+                  </label>
+                  <textarea
+                    placeholder="खबर से जुड़े कीवर्ड्स कॉमा (,) लगाकर लिखें..."
+                    value={keywords}
+                    onChange={(e) => { setKeywords(e.target.value); setSaveStatus('unsaved'); }}
+                    className="w-full bg-zinc-50 border border-zinc-200 focus:border-brand-blue focus:bg-white rounded-xl py-3 px-4 font-medium text-zinc-700 focus:outline-none transition-all min-h-[80px]"
+                  />
+                </div>
+              </div>
             </div>
 
-            {/* Sidebar (1 Column) */}
-            <div className="space-y-6">
+            {/* Sidebar (Right Column - 40%) */}
+            <div className="lg:col-span-2 space-y-6">
               
               {/* Media Upload Area */}
               <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm space-y-4">
@@ -1035,6 +1248,9 @@ export default function UploadNews() {
                   )}
                 </div>
               </div>
+
+              {/* AI Assistant */}
+              <GeminiChatbot />
 
               {/* API and ImageKit config panel */}
               <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm space-y-4">
