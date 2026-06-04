@@ -10,6 +10,7 @@ import Videos from './pages/Videos';
 import Contact from './pages/Contact';
 import ArticleDetail from './pages/ArticleDetail';
 import Category from './pages/Category';
+import UploadNews from './pages/UploadNews';
 import ScrollToTop from './components/ScrollToTop';
 import BreakingNewsTicker from './components/BreakingNewsTicker';
 import Navbar from './components/Navbar';
@@ -87,6 +88,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/news/:id" element={<ArticleDetail />} />
             <Route path="/category/:name" element={<Category />} />
+            <Route path="/upload-news" element={<UploadNews />} />
           </Routes>
         </main>
         

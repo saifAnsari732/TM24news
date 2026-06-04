@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Search, RotateCw } from 'lucide-react';
+import { Menu, X, Search, RotateCw, PlusCircle, Lock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../images/logo.png';
 import { NewsContext } from '../context/NewsContext';
@@ -9,7 +9,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const { loading, refreshNews } = useContext(NewsContext);
+  const { loading, refreshNews, isAdminLoggedIn } = useContext(NewsContext);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -89,6 +89,14 @@ export default function Navbar() {
               <Search size={18} className="absolute left-3.5 text-zinc-400 pointer-events-none" />
             </form>
 
+            <Link
+              to="/upload-news"
+              className="bg-gradient-to-r from-brand-red to-brand-blue text-white px-4 py-2 rounded-full font-bold text-sm shadow hover:shadow-[0_4px_10px_rgba(0,38,152,0.3)] active:scale-95 transition-all duration-300 flex items-center gap-1.5 shrink-0 hover:scale-[1.02]"
+            >
+              {isAdminLoggedIn ? <PlusCircle size={16} /> : <Lock size={16} />}
+              <span>{isAdminLoggedIn ? 'न्यूज़ अपलोड' : 'लॉगिन करें'}</span>
+            </Link>
+
             <button
               onClick={() => refreshNews(true)}
               disabled={loading}
@@ -136,6 +144,16 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
+
+              <Link
+                to="/upload-news"
+                className="bg-gradient-to-r from-brand-red to-brand-blue text-white py-2.5 px-4 rounded-xl font-bold text-center flex items-center justify-center gap-2 shadow hover:shadow-lg transition-all"
+                onClick={() => setIsOpen(false)}
+              >
+                {isAdminLoggedIn ? <PlusCircle size={18} /> : <Lock size={18} />}
+                <span>{isAdminLoggedIn ? 'न्यूज़ अपलोड करें' : 'लॉगिन करें'}</span>
+              </Link>
+
               <div className="border-t border-zinc-100 pt-4 pb-2 flex items-center gap-3">
                 <form onSubmit={handleSearchSubmit} className="relative flex items-center flex-1">
                   <input

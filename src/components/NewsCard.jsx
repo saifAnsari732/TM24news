@@ -24,10 +24,20 @@ export default function NewsCard({ news }) {
       </div>
       <div className="p-5">
         <h3 className="text-xl font-bold mb-3 line-clamp-2 group-hover:text-brand-blue transition-colors">
-          <Link to={`/news/${news.id}`}>{news.title}</Link>
+          <Link to={`/news/${news.id}`}>
+            {news.title && (news.title.includes('<') || news.title.includes('&')) ? (
+              <span dangerouslySetInnerHTML={{ __html: news.title }} />
+            ) : (
+              news.title
+            )}
+          </Link>
         </h3>
         <p className="text-zinc-600 mb-4 line-clamp-2 text-sm">
-          {news.description}
+          {news.description && (news.description.includes('<') || news.description.includes('&')) ? (
+            <span dangerouslySetInnerHTML={{ __html: news.description }} />
+          ) : (
+            news.description
+          )}
         </p>
         <div className="flex items-center justify-between text-xs text-zinc-500 font-medium">
           <div className="flex items-center gap-1">

@@ -59,7 +59,11 @@ export default function ArticleDetail() {
                 {article.category}
               </Link>
               <h1 className="text-3xl md:text-5xl font-black text-brand-dark mb-6 leading-tight">
-                {article.title}
+                {article.title && (article.title.includes('<') || article.title.includes('&')) ? (
+                  <span dangerouslySetInnerHTML={{ __html: article.title }} />
+                ) : (
+                  article.title
+                )}
               </h1>
               <div className="flex flex-wrap items-center gap-6 text-zinc-500 font-medium pb-6 border-b border-zinc-200">
                 <div className="flex items-center gap-2">
@@ -81,13 +85,24 @@ export default function ArticleDetail() {
             {/* Article Body */}
             <div className="prose prose-lg max-w-none mb-12 prose-p:font-medium prose-p:text-zinc-700">
               <p className="text-xl text-zinc-600 font-bold mb-6 border-l-4 border-brand-blue pl-4 leading-relaxed">
-                {article.description}
+                {article.description && (article.description.includes('<') || article.description.includes('&')) ? (
+                  <span dangerouslySetInnerHTML={{ __html: article.description }} />
+                ) : (
+                  article.description
+                )}
               </p>
-              <div className="text-zinc-800 text-lg leading-relaxed space-y-6 font-normal">
+              <div className="text-zinc-800 text-lg leading-relaxed space-y-6 font-normal rich-text-content">
                 {/* Safe rendering of description/content paragraphs */}
-                {article.content.split('\n\n').map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
-                ))}
+                {article.isRichContent || (article.content && article.content.includes('<')) ? (
+                  <div 
+                    className="prose max-w-none prose-headings:font-black prose-a:text-brand-blue hover:prose-a:underline" 
+                    dangerouslySetInnerHTML={{ __html: article.content }} 
+                  />
+                ) : (
+                  article.content.split('\n\n').map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                  ))
+                )}
               </div>
               <p className="text-zinc-500 text-sm mt-8 border-t border-zinc-100 pt-4 italic">
                 * देश और प्रदेश की हर बड़ी खबर सबसे पहले और सबसे तेज़ पढ़ने के लिए बने रहें TM24 न्यूज़ के साथ।

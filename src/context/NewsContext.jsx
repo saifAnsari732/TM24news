@@ -18,13 +18,34 @@ export const apiCategoryMap = {
   other: "अन्य"
 };
 
+// Local Storage Helpers for Custom Articles
+const getLocalArticles = () => {
+  try {
+    const stored = localStorage.getItem('tm24_custom_articles');
+    return stored ? JSON.parse(stored) : [];
+  } catch (e) {
+    console.error("Error reading localStorage:", e);
+    return [];
+  }
+};
+
 export const NewsProvider = ({ children }) => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(null);
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
   const API_URL = 'https://newsdata.io/api/1/news?apikey=pub_f64a32c0b8d54f9190702bda4c10279a&country=in&language=hi&removeduplicate=1';
+
+  // Helper to merge local articles with fetched articles
+  const mergeArticles = useCallback((fetchedArticles) => {
+    const localArticles = getLocalArticles();
+    const filteredLocal = localArticles.filter(
+      la => !fetchedArticles.some(fa => String(fa.id) === String(la.id))
+    );
+    return [...filteredLocal, ...fetchedArticles];
+  }, []);
 
   const mapApiArticle = useCallback((item, index) => {
     let mappedCategory = "अन्य";
@@ -64,28 +85,78 @@ export const NewsProvider = ({ children }) => {
   const fetchNews = useCallback(async (showLoader = true) => {
     if (showLoader) setLoading(true);
     setError(null);
+    
+    // Check custom backend configurations
+    const savedBackendUrl = localStorage.getItem('tm24_backend_url') || 'https://kisanteamweb.it.com/api';
+    const isSimMode = localStorage.getItem('tm24_use_simulation') === 'true';
+
+    let dbArticles = [];
+    let apiArticles = [];
+
+    // 1. Fetch from MongoDB Backend (if not in Simulation Mode)
+    if (!isSimMode) {
+      try {
+        const dbResponse = await fetch(`${savedBackendUrl}/news`);
+        if (dbResponse.ok) {
+          const dbData = await dbResponse.json();
+          dbArticles = dbData.map(art => ({
+            ...art,
+            id: art._id || art.id,
+            isRichContent: true
+          }));
+        } else {
+          console.warn(`DB Server returned error status ${dbResponse.status}`);
+        }
+      } catch (dbErr) {
+        console.warn("Backend server not connected. Skipping DB articles. Reason:", dbErr.message);
+      }
+    }
+
+    // 2. Fetch from newsdata.io API
     try {
       const response = await fetch(API_URL);
-      if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
-      }
-      const data = await response.json();
-      if (data.status === "success" && data.results && data.results.length > 0) {
-        const mappedArticles = data.results.map((item, index) => mapApiArticle(item, index));
-        setNews(mappedArticles);
-        setLastUpdated(new Date());
+      if (response.ok) {
+        const data = await response.json();
+        if (data.status === "success" && data.results && data.results.length > 0) {
+          apiArticles = data.results.map((item, index) => mapApiArticle(item, index));
+        } else {
+          throw new Error("No news results returned from newsdata.io API");
+        }
       } else {
-        throw new Error("No news results returned from API");
+        throw new Error(`newsdata.io API returned status ${response.status}`);
       }
-    } catch (err) {
-      console.warn("News API failed or limit reached, falling back to mock data. Error:", err.message);
-      setError(err.message);
-      // Fallback: Map the mock data to include necessary attributes and set as current news
-      setNews(mockNewsData);
-    } finally {
-      if (showLoader) setLoading(false);
+    } catch (apiErr) {
+      console.warn("newsdata.io API fetch failed, falling back to mock news. Reason:", apiErr.message);
+      // Fallback: use mock news data + local storage simulated database published articles
+      const simulatedDb = JSON.parse(localStorage.getItem('tm24_simulated_db') || '[]');
+      const publishedSim = simulatedDb.filter(item => item.published === true);
+      apiArticles = [...publishedSim, ...mockNewsData];
     }
-  }, [mapApiArticle]);
+
+    // 3. Merge everything: DB news + API/Mock news
+    const combinedNewsList = [...dbArticles, ...apiArticles];
+    
+    // Merge with localStorage custom articles (using mergeArticles helper to prevent duplicates)
+    const finalMergedNews = mergeArticles(combinedNewsList);
+
+    setNews(finalMergedNews);
+    setLastUpdated(new Date());
+    if (showLoader) setLoading(false);
+  }, [mapApiArticle, mergeArticles]);
+
+  const addArticle = useCallback((newArticle) => {
+    try {
+      const localArticles = getLocalArticles();
+      const updated = [newArticle, ...localArticles];
+      localStorage.setItem('tm24_custom_articles', JSON.stringify(updated));
+      setNews(prev => {
+        const filtered = prev.filter(p => String(p.id) !== String(newArticle.id));
+        return [newArticle, ...filtered];
+      });
+    } catch (e) {
+      console.error("Failed to save article to localStorage:", e);
+    }
+  }, []);
 
   // Initial load
   useEffect(() => {
@@ -93,7 +164,7 @@ export const NewsProvider = ({ children }) => {
   }, [fetchNews]);
 
   return (
-    <NewsContext.Provider value={{ news, loading, error, lastUpdated, refreshNews: fetchNews }}>
+    <NewsContext.Provider value={{ news, loading, error, lastUpdated, refreshNews: fetchNews, addArticle, isAdminLoggedIn, setIsAdminLoggedIn }}>
       {children}
     </NewsContext.Provider>
   );
