@@ -35,18 +35,47 @@ export default function GeminiChatbot() {
     setIsLoading(true);
 
     try {
+      // Build conversation history (skip intro and errors)
+      const validMessages = messages.filter(m => 
+        !m.isError && 
+        !(m.sender === 'bot' && m.text.includes("नमस्ते! मैं TM24news का AI असिस्टेंट हूँ"))
+      );
+
+      // Ensure alternating roles by grouping consecutive messages from the same sender
+      const contents = [];
+      let currentRole = null;
+      let currentParts = [];
+
+      [...validMessages, { text: userMessage, sender: 'user' }].forEach(m => {
+        const role = m.sender === 'user' ? 'user' : 'model';
+        if (role === currentRole) {
+          currentParts.push({ text: m.text });
+        } else {
+          if (currentRole) {
+            contents.push({ role: currentRole, parts: currentParts });
+          }
+          currentRole = role;
+          currentParts = [{ text: m.text }];
+        }
+      });
+      if (currentRole) {
+        contents.push({ role: currentRole, parts: currentParts });
+      }
+
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: userMessage }] }]
-        })
+        body: JSON.stringify({ contents })
       });
 
       const data = await response.json();
       
+      if (!response.ok) {
+        throw new Error(data.error?.message || `API Error: ${response.status}`);
+      }
+
       if (data.candidates && data.candidates.length > 0) {
         const botMessage = data.candidates[0].content.parts[0].text;
         setMessages(prev => [...prev, { text: botMessage, sender: 'bot' }]);
@@ -54,8 +83,8 @@ export default function GeminiChatbot() {
         throw new Error('No valid response from API');
       }
     } catch (error) {
-      console.error(error);
-      setMessages(prev => [...prev, { text: "क्षमा करें, मुझे सर्वर से कनेक्ट करने में समस्या हो रही है। कृपया थोड़ी देर बाद प्रयास करें।", sender: 'bot', isError: true }]);
+      console.error("Gemini API Error:", error);
+      setMessages(prev => [...prev, { text: `क्षमा करें, मुझे सर्वर से कनेक्ट करने में समस्या हो रही है। (${error.message})`, sender: 'bot', isError: true }]);
     } finally {
       setIsLoading(false);
     }
