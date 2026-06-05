@@ -29,7 +29,7 @@ export default function Home() {
     <div className="bg-zinc-50 min-h-screen">
       <section className="relative min-h-[75vh] flex flex-col items-center justify-center overflow-hidden bg-white ">
         {/* Welcoming Tagline with brand Red-to-Blue Gradient and responsive phone sizing */}
-        <h1 className="text-xl sm:text-3xl md:text-6xl  font-black text-center px-7 relative z-20 text-transparent bg-clip-text bg-gradient-to-r from-[#ac0202] via-[#a50202] to-[#002698] tracking-tight max-w-5xl leading-snug mb-4 py-4">
+        <h1 className="text-xl sm:text-3xl md:text-6xl font-black text-center px-7 relative z-20 text-black tracking-tight max-w-5xl leading-snug mb-4 py-4">
           देश और प्रदेश की हर बड़ी खबर सबसे पहले और सबसे तेज़।
         </h1>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-blue/5 rounded-full blur-[100px] pointer-events-none"></div>

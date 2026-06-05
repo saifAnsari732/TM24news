@@ -77,7 +77,7 @@ export default function DummyAd({ type = "banner", className = "" }) {
             href={ad.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 to-indigo-600 hover:from-red-500 hover:to-indigo-500 text-white font-bold py-3.5 px-8 rounded-xl transition-all shadow-[0_4px_12px_rgba(239,68,68,0.25)] hover:shadow-[0_6px_20px_rgba(239,68,68,0.4)] hover:scale-[1.03] active:scale-[0.98] text-base"
+            className="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-[#d40101] hover:bg-[#b00101] text-white font-bold py-3.5 px-8 rounded-xl transition-all shadow-[0_4px_12px_rgba(239,68,68,0.25)] hover:shadow-[0_6px_20px_rgba(239,68,68,0.4)] hover:scale-[1.03] active:scale-[0.98] text-base"
           >
             {ad.cta}
             <ExternalLink size={16} />
@@ -122,10 +122,10 @@ export default function DummyAd({ type = "banner", className = "" }) {
             href={ad.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full inline-flex items-center justify-center gap-2 bg-white text-zinc-900 hover:bg-zinc-100 font-black py-2.5 rounded-lg transition-all hover:shadow-[0_4px_12px_rgba(255,255,255,0.15)] active:scale-[0.98] text-xs uppercase tracking-wide"
+            className="w-full inline-flex items-center justify-center gap-2 bg-[#d40101] text-white hover:bg-[#b00101] font-black py-2.5 rounded-lg transition-all hover:shadow-[0_4px_12px_rgba(212,1,1,0.25)] active:scale-[0.98] text-xs uppercase tracking-wide"
           >
             {ad.cta}
-            <ExternalLink size={14} className="text-indigo-600" />
+            <ExternalLink size={14} className="text-white" />
           </a>
         </div>
       </motion.div>
@@ -169,7 +169,7 @@ export default function DummyAd({ type = "banner", className = "" }) {
           href={ad.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 to-amber-500 hover:from-red-500 hover:to-amber-400 text-white font-bold py-3 rounded-xl transition-all shadow-[0_4px_12px_rgba(239,68,68,0.2)] active:scale-[0.98] text-xs"
+          className="w-full inline-flex items-center justify-center gap-2 bg-[#d40101] hover:bg-[#b00101] text-white font-bold py-3 rounded-xl transition-all shadow-[0_4px_12px_rgba(212,1,1,0.25)] active:scale-[0.98] text-xs"
         >
           {ad.cta}
           <ExternalLink size={12} />
