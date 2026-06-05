@@ -38,18 +38,18 @@ function App() {
               className="inline-flex items-center gap-2 mx-12 hover:underline hover:text-emerald-300 transition-colors cursor-pointer"
             >
               <Megaphone size={18} className="animate-pulse shrink-0 text-white" />
-              <span>📢 विज्ञापन के लिए संपर्क करें (WhatsApp): +91 9511150925</span>
+              <span>विज्ञापन के लिए संपर्क करें (WhatsApp): +91 9511150925</span>
             </a>
             <a 
               href="mailto:Tm24newsofficial@gmail.com"
               className="inline-flex items-center gap-2 mx-12 hover:underline hover:text-indigo-200 transition-colors cursor-pointer"
             >
               <Mail size={18} className="shrink-0 text-white" />
-              <span>📧 ई-मेल: Tm24newsofficial@gmail.com</span>
+              <span>ई-मेल: Tm24newsofficial@gmail.com</span>
             </a>
             <span className="inline-flex items-center gap-2 mx-12 text-zinc-100">
               <Megaphone size={18} className="animate-pulse shrink-0 text-white" />
-              <span>🔥 देश और प्रदेश की हर बड़ी खबर सबसे पहले और सबसे तेज़!</span>
+              <span>देश और प्रदेश की हर बड़ी खबर सबसे पहले और सबसे तेज़!</span>
             </span>
             <a 
               href="https://wa.me/919511150925"
@@ -58,18 +58,18 @@ function App() {
               className="inline-flex items-center gap-2 mx-12 hover:underline hover:text-emerald-300 transition-colors cursor-pointer"
             >
               <Megaphone size={18} className="animate-pulse shrink-0 text-white" />
-              <span>📢 विज्ञापन के लिए संपर्क करें (WhatsApp): +91 9511150925</span>
+              <span>विज्ञापन के लिए संपर्क करें (WhatsApp): +91 9511150925</span>
             </a>
             <a 
               href="mailto:Tm24newsofficial@gmail.com"
               className="inline-flex items-center gap-2 mx-12 hover:underline hover:text-indigo-200 transition-colors cursor-pointer"
             >
               <Mail size={18} className="shrink-0 text-white" />
-              <span>📧 ई-मेल: Tm24newsofficial@gmail.com</span>
+              <span>ई-मेल: Tm24newsofficial@gmail.com</span>
             </a>
             <span className="inline-flex items-center gap-2 mx-12 text-zinc-100">
               <Megaphone size={18} className="animate-pulse shrink-0 text-white" />
-              <span>🔥 देश और प्रदेश की हर बड़ी खबर सबसे पहले और सबसे तेज़!</span>
+              <span>देश और प्रदेश की हर बड़ी खबर सबसे पहले और सबसे तेज़!</span>
             </span>
           </marquee>
         </div>

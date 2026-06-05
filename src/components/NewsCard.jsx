@@ -49,7 +49,7 @@ export default function NewsCard({ news }) {
             {news.date}
           </div>
         </div>
-        <Link to={`/news/${news.id}`} className="mt-4 block w-full text-center bg-gradient-to-r from-brand-red to-brand-blue text-white hover:shadow-[0_4px_12px_rgba(172,2,2,0.25)] hover:scale-[1.02] active:scale-[0.98] transition-all py-2.5 rounded-lg font-bold text-sm">
+        <Link to={`/news/${news.id}`} className="mt-4 block w-full text-center bg-[#b90000] text-white hover:bg-[#990000] hover:shadow-[0_4px_12px_rgba(172,2,2,0.25)] hover:scale-[1.02] active:scale-[0.98] transition-all py-2.5 rounded-lg font-bold text-sm">
           पूरा पढ़ें
         </Link>
       </div>

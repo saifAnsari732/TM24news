@@ -50,8 +50,8 @@ export default function Home() {
             <h1 className="text-6xl  md:text-8xl font-black text-[#e00303] mb-2 tracking-tight leading-[1.1]">
               TM24 <span className="text-[#002ac2] drop-shadow-sm">NEWS</span>
             </h1>
-            <h2 className="text-4xl md:text-6xl font-black text-zinc-800 mb-8 tracking-tight leading-tight">
-              आवाज़ <span className="text-[#d40101]">देश की</span>...
+            <h2 className="text-4xl md:text-6xl font-black text-black mb-8 tracking-tight leading-tight">
+              आवाज़ देश की...
             </h2>
 
             {/* Subtitle & Description */}

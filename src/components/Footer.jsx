@@ -12,7 +12,7 @@ const PinterestIcon = (props) => (
 
 export default function Footer() {
   return (
-    <footer className="bg-[#18181b] text-white pt-16 pb-8 border-t-4 border-[#FF0000]">
+    <footer className="bg-white text-black pt-16 pb-8 border-t-4 border-[#FF0000]">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           
@@ -23,29 +23,29 @@ export default function Footer() {
                 <span className="text-3xl font-black text-[#FF0000] tracking-tight">TM24<span className="text-[#0038FF]">NEWS</span></span>
               </div>
             </Link>
-            <p className="text-zinc-400 mb-4 font-medium italic">“आवाज़ देश की…”</p>
-            <p className="text-sm text-zinc-300 leading-relaxed mb-6">
+            <p className="text-zinc-600 mb-4 font-medium italic">“आवाज़ देश की…”</p>
+            <p className="text-sm text-zinc-700 leading-relaxed mb-6">
               TM24 News एक स्वतंत्र डिजिटल न्यूज़ प्लेटफॉर्म है जो निष्पक्ष पत्रकारिता, जनहित और सामाजिक जागरूकता के लिए समर्पित है।
             </p>
             <div className="flex gap-4">
-              <a href="https://facebook.com/tm24newsofficial" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center hover:bg-[#0038FF] transition-colors">
+              <a href="https://facebook.com/tm24newsofficial" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-200 text-zinc-800 flex items-center justify-center hover:bg-[#0038FF] hover:text-white transition-colors">
                 <Facebook size={20} />
               </a>
-              <a href="https://instagram.com/tm24newschannel" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center hover:bg-pink-600 transition-colors">
+              <a href="https://instagram.com/tm24newschannel" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-200 text-zinc-800 flex items-center justify-center hover:bg-pink-600 hover:text-white transition-colors">
                 <Instagram size={20} />
               </a>
-              <a href="https://x.com/TM241078600" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center hover:bg-zinc-700 transition-colors">
+              <a href="https://x.com/TM241078600" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-200 text-zinc-800 flex items-center justify-center hover:bg-zinc-700 hover:text-white transition-colors">
                 <Twitter size={20} />
               </a>
-              <a href="https://pinterest.com/tm24newsofficial" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center hover:bg-[#FF0000] transition-colors">
+              <a href="https://pinterest.com/tm24newsofficial" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-200 text-zinc-800 flex items-center justify-center hover:bg-[#FF0000] hover:text-white transition-colors">
                 <PinterestIcon />
               </a>
             </div>
           </div>
 
           <div>
-            <h3 className="text-xl font-bold mb-6 border-b border-zinc-700 pb-2 inline-block">समाचार कैटगरी</h3>
-            <ul className="space-y-3 font-semibold text-zinc-400">
+            <h3 className="text-xl font-bold mb-6 border-b border-zinc-300 pb-2 inline-block">समाचार कैटगरी</h3>
+            <ul className="space-y-3 font-semibold text-zinc-600">
               {categories.map((cat) => (
                 <li key={cat}>
                   <Link to={`/category/${cat}`} className="hover:text-[#FF0000] transition-colors">• {cat}</Link>
@@ -55,8 +55,8 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xl font-bold mb-6 border-b border-zinc-700 pb-2 inline-block">त्वरित लिंक्स</h3>
-            <ul className="space-y-3 font-semibold text-zinc-400">
+            <h3 className="text-xl font-bold mb-6 border-b border-zinc-300 pb-2 inline-block">त्वरित लिंक्स</h3>
+            <ul className="space-y-3 font-semibold text-zinc-600">
               <li><Link to="/about" className="hover:text-[#FF0000] transition-colors">• हमारे बारे में</Link></li>
               <li><Link to="/mission" className="hover:text-[#FF0000] transition-colors">• हमारा मिशन</Link></li>
               <li><Link to="/vision" className="hover:text-[#FF0000] transition-colors">• हमारा विज़न</Link></li>
@@ -67,8 +67,8 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xl font-bold mb-6 border-b border-zinc-700 pb-2 inline-block">संपर्क सूत्र</h3>
-            <ul className="space-y-4 text-zinc-300 text-sm">
+            <h3 className="text-xl font-bold mb-6 border-b border-zinc-300 pb-2 inline-block">संपर्क सूत्र</h3>
+            <ul className="space-y-4 text-zinc-700 text-sm">
               <li className="flex items-start gap-3">
                 <Mail size={18} className="text-[#FF0000] shrink-0 mt-1" />
                 <span>Tm24newsofficial@gmail.com</span>
@@ -86,7 +86,7 @@ export default function Footer() {
 
         </div>
 
-        <div className="border-t border-zinc-800 pt-8 mt-8 text-center text-zinc-500 text-sm">
+        <div className="border-t border-zinc-300 pt-8 mt-8 text-center text-zinc-600 text-sm">
           <p>© {new Date().getFullYear()} TM24 News. सर्वाधिकार सुरक्षित।</p>
         </div>
       </div>
