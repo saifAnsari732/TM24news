@@ -54,7 +54,7 @@ export default function Navbar() {
               alt="TM24 News Logo" 
               className="h-32" 
             />
-            <span className="text-2xl md:text-4xl hidden sm:flex font-black tracking-tight select-none items-center">
+            <span className="text-2xl md:text-4xl hidden xl:flex font-black tracking-tight select-none items-center">
               <span className="text-[#c50505]">TM24</span>
               <span className="text-[#0433dd]">NEWS</span>
             </span>
