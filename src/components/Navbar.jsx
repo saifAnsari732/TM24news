@@ -61,7 +61,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8 h-full">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-8 h-full">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -77,7 +77,7 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-3">
             <form onSubmit={handleSearchSubmit} className="relative flex items-center">
               <input
                 type="text"
@@ -112,7 +112,7 @@ export default function Navbar() {
 
           {/* Mobile Toggle */}
           <button
-            className="md:hidden text-zinc-800 p-2"
+            className="lg:hidden text-zinc-800 p-2"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -127,7 +127,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-t mt-2 absolute top-full left-0 w-full shadow-lg"
+            className="lg:hidden bg-white border-t mt-2 absolute top-full left-0 w-full shadow-lg"
           >
             <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
               {navLinks.map((link) => (

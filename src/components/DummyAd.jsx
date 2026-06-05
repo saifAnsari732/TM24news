@@ -83,7 +83,7 @@ export default function DummyAd({ type = "banner", className = "" }) {
             <ExternalLink size={16} />
           </a>
         </div>
-      </motion.div>
+      </motion.div> logo name remove kro when need to small 
     );
   }
 
