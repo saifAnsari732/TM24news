@@ -151,7 +151,7 @@ export default function GeminiChatbot({ onInsertContent }) {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="यहाँ टाइप करें..."
+          placeholder="यहाँ टाइप करें...s"
           className="flex-1 px-4 py-2 border border-zinc-300 rounded-xl focus:outline-none border-indigo-500 ring-1 ring-indigo-500 text-sm"
           disabled={isLoading}
         />

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, RotateCw, PlusCircle, Lock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Logo from '../images/logo.png';
+import Logo from '/logo.png';
 import { NewsContext } from '../context/NewsContext';
 
 export default function Navbar() {

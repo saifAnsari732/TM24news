@@ -12,7 +12,6 @@ const ADS_DATA = {
     gradient: "from-[#0F172A] via-[#1E293B] to-[#0F172A]",
     accentColor: "text-blue-400",
     badge: "आल-इन-वन डिजिटल एजेंसी",
-    icon: Sparkles
   },
   card: {
     title: "वेबसाइट बनवाना हो या मोबाइल ऐप - किसान डिजिटल",
@@ -23,7 +22,6 @@ const ADS_DATA = {
     gradient: "from-indigo-950 via-slate-900 to-indigo-950",
     accentColor: "text-amber-400",
     badge: "वेब & ऐप & वीडियो",
-    icon: Award
   },
   sidebar: {
     title: "सोशल मीडिया & वीडियो एडिटिंग - किसान डिजिटल",
@@ -34,7 +32,6 @@ const ADS_DATA = {
     gradient: "from-zinc-900 via-neutral-950 to-zinc-900",
     accentColor: "text-emerald-400",
     badge: "डिजिटल मार्केटिंग & SMM",
-    icon: ShieldCheck
   }
 };
 
@@ -61,10 +58,7 @@ export default function DummyAd({ type = "banner", className = "" }) {
             <span className="bg-red-600 text-white font-black px-3 py-1 rounded text-[10px] tracking-widest uppercase">
               प्रायोजित
             </span>
-            <span className="bg-zinc-800 border border-zinc-700 text-zinc-300 font-bold px-2 py-0.5 rounded text-[10px] flex items-center gap-1">
-              <Icon size={12} className={ad.accentColor} />
-              {ad.badge}
-            </span>
+          
             <span className="text-zinc-400 text-xs font-semibold hidden sm:inline">
               {ad.tagline}
             </span>
@@ -109,10 +103,7 @@ export default function DummyAd({ type = "banner", className = "" }) {
             <span className="bg-red-600 text-white font-black px-2.5 py-0.5 rounded text-[10px] tracking-wider uppercase">
               प्रायोजित
             </span>
-            <span className="bg-white/10 backdrop-blur-md border border-white/20 text-white/90 font-bold px-2 py-0.5 rounded text-[10px] flex items-center gap-1">
-              <Icon size={12} className={ad.accentColor} />
-              {ad.badge}
-            </span>
+           
           </div>
 
           <h4 className="text-lg md:text-xl font-black mb-3 text-zinc-100 group-hover:text-amber-300 transition-colors leading-snug">
@@ -156,10 +147,10 @@ export default function DummyAd({ type = "banner", className = "" }) {
           <span className="bg-red-600 text-white font-black px-2 py-0.5 rounded text-[10px] tracking-wider uppercase">
             विज्ञापन
           </span>
-          <span className="bg-zinc-800 border border-zinc-700 text-zinc-300 font-bold px-2 py-0.5 rounded text-[9px] flex items-center gap-1">
+          {/* <span className="bg-zinc-800 border border-zinc-700 text-zinc-300 font-bold px-2 py-0.5 rounded text-[9px] flex items-center gap-1">
             <Icon size={12} className={ad.accentColor} />
             {ad.badge}
-          </span>
+          </span> */}
         </div>
 
         <h4 className="text-lg font-black tracking-tight mb-4 text-zinc-100 leading-snug">

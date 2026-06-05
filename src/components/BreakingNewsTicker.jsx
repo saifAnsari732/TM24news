@@ -4,6 +4,12 @@ import { Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { NewsContext } from '../context/NewsContext';
 
+const stripHtml = (html) => {
+  if (!html) return "";
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  return doc.body.textContent || "";
+};
+
 export default function BreakingNewsTicker() {
   const { news } = useContext(NewsContext);
   const breakingNews = news.filter(item => item.breaking);
@@ -30,7 +36,7 @@ export default function BreakingNewsTicker() {
             <span key={news.id} className="mx-8 flex items-center">
               <span className="w-2 h-2 bg-white rounded-full mr-3 animate-ping" />
               <Link to={`/news/${news.id}`} className="hover:underline font-medium">
-                {news.title}
+                {stripHtml(news.title)}
               </Link>
             </span>
           ))}
