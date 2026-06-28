@@ -27,66 +27,55 @@ export default function Home() {
 
   return (
     <div className="bg-zinc-50 min-h-screen">
-      <section className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden bg-brand-dark text-white">
-        {/* Modern Animated Background */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-brand-blue/30 rounded-full blur-[120px] mix-blend-screen animate-pulse-slow"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-brand-red/20 rounded-full blur-[150px] mix-blend-screen animate-float"></div>
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
-        </div>
+      <section className="relative min-h-[75vh] flex flex-col items-center justify-center overflow-hidden bg-white">
+        {/* Welcoming Tagline */}
+        <h1 className="text-xl sm:text-3xl md:text-5xl font-black text-center px-4 relative z-20 text-black tracking-tight max-w-5xl leading-snug mb-8 py-4 mt-8">
+          देश और प्रदेश की हर बड़ी खबर सबसे पहले और सबसे तेज़।
+        </h1>
         
-        {/* Welcoming Tagline with glassmorphism */}
-        <div className="w-full bg-white/5 backdrop-blur-md border-b border-white/10 py-3 relative z-20">
-          <h1 className="text-sm sm:text-base md:text-xl font-medium text-center px-4 text-zinc-300 tracking-wide">
-            देश और प्रदेश की हर बड़ी खबर सबसे पहले और सबसे तेज़
-          </h1>
-        </div>
+        {/* Centered Pill Badge */}
+        <div className="container mx-auto px-4 relative z-10 text-center flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 border border-zinc-200 bg-white shadow-sm text-zinc-500 px-5 py-1.5 rounded-full text-xs md:text-sm font-bold mb-6 tracking-wide">
+            <span className="w-2 h-2 bg-brand-red rounded-full"></span>
+            भारत का उभरता न्यूज़ पोर्टल
+          </div>
 
-        <div className="container mx-auto px-4 relative z-10 text-center flex flex-col items-center pt-16 pb-20">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
             className="max-w-5xl mx-auto flex flex-col items-center"
           >
-            {/* Top Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-lg border border-white/20 text-white px-5 py-2 rounded-full text-xs md:text-sm font-bold mb-10 shadow-glass tracking-widest uppercase hover-lift">
-              <span className="w-2 h-2 bg-brand-accent rounded-full animate-ping"></span>
-              भारत का उभरता न्यूज़ पोर्टल
-            </div>
-
-            {/* Main Heading */}
-            <h1 className="text-7xl md:text-9xl font-black mb-4 tracking-tighter leading-none">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400 drop-shadow-lg">TM24</span> 
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-brand-red-dark drop-shadow-2xl ml-4">NEWS</span>
+            {/* Main Heading (TM24 NEWS) */}
+            <h1 className="text-[5rem] md:text-[8rem] font-black mb-4 tracking-tighter leading-none flex items-center gap-4">
+              <span className="text-brand-red">TM24</span> 
+              <span className="text-brand-blue">NEWS</span>
             </h1>
             
-            <h2 className="text-3xl md:text-5xl font-bold text-zinc-300 mb-10 tracking-tight leading-tight max-w-3xl">
-              आवाज़ देश की... <span className="text-brand-accent italic font-light">सच्ची, निष्पक्ष, तेज़</span>
+            {/* Subtitle */}
+            <h2 className="text-4xl md:text-6xl font-black text-black mb-8 tracking-tight">
+              आवाज़ देश की...
             </h2>
 
-            {/* Description */}
-            <p className="text-lg md:text-2xl text-zinc-400 mb-12 font-medium max-w-2xl leading-relaxed">
-              देश और समाज से जुड़े हर मुद्दे को जनता तक पहुँचाने के लिए समर्पित सबसे विश्वसनीय मंच।
+            {/* Description Lines */}
+            <p className="text-xl md:text-2xl text-zinc-500 font-medium mb-2">
+              सच्ची • निष्पक्ष • तेज़ खबरें
+            </p>
+            <p className="text-lg md:text-xl text-zinc-400 font-normal max-w-2xl mb-12">
+              देश और समाज से जुड़े हर मुद्दे को जनता तक पहुँचाने के लिए समर्पित।
             </p>
 
             {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto mt-4">
-              <Link to="/latest" className="group relative bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-4 px-10 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 text-lg shadow-[0_0_40px_-10px_rgba(30,64,175,0.7)] hover:shadow-[0_0_60px_-15px_rgba(30,64,175,0.9)] hover:-translate-y-1 border border-white/10 overflow-hidden">
-                <span className="relative z-10 flex items-center gap-2">ताज़ा खबरें देखें <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" /></span>
-                <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+            <div className="flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
+              <Link to="/latest" className="bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-3.5 px-8 rounded-xl transition-all flex items-center justify-center gap-2 text-lg shadow-md hover:shadow-lg">
+                ताज़ा खबरें देखें <ArrowRight size={20} />
               </Link>
-              
-              <Link to="/videos" className="group bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold py-4 px-10 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 text-lg hover:-translate-y-1 hover:shadow-glass">
-                <PlayCircle size={22} className="text-brand-red group-hover:scale-110 transition-transform" /> 
-                <span>वीडियो रिपोर्ट</span>
+              <Link to="/videos" className="bg-brand-red hover:bg-brand-red-dark text-white font-bold py-3.5 px-8 rounded-xl transition-all flex items-center justify-center gap-2 text-lg shadow-md hover:shadow-lg">
+                <PlayCircle size={20} /> वीडियो रिपोर्ट
               </Link>
             </div>
           </motion.div>
         </div>
-        
-        {/* Fade Out Bottom Edge */}
-        <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-zinc-50 to-transparent z-10 pointer-events-none"></div>
       </section>
 
       {/* Main Content */}

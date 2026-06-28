@@ -8,12 +8,12 @@ export default {
     extend: {
       colors: {
         brand: {
-          red: '#E11D48',      // Modern Rose Red
-          'red-dark': '#9F1239',
-          blue: '#1E40AF',     // Deep Royal Blue
-          'blue-dark': '#1E3A8A',
-          dark: '#0F172A',     // Slate 900
-          accent: '#10B981',   // Emerald Accent
+          red: '#e00303',
+          'red-dark': '#9e0000',
+          blue: '#002ac2',
+          'blue-dark': '#001b80',
+          dark: '#111111',
+          accent: '#10B981',   // Emerald Accent for whatsapp
         }
       },
       backgroundImage: {
