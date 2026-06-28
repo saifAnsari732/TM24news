@@ -6,7 +6,6 @@ import {
   UploadCloud, Eye, Save, Heading, Plus, Settings, AlertCircle, CheckCircle, Info, Globe, Palette, FileText, Send, Lock, Link as LinkIcon, Quote
 } from 'lucide-react';
 import { NewsContext } from '../context/NewsContext';
-import GeminiChatbot from '../components/GeminiChatbot';
 import { API_BASE_URL, IMAGEKIT_AUTH_URL } from '../services/api';
 import { indianStatesAndCities } from '../data/locations';
 
@@ -238,16 +237,6 @@ export default function UploadNews() {
     const url = prompt("Please enter link URL:");
     if (url) {
       handleEditorCommand('createLink', url);
-    }
-  };
-
-  const handleInsertAIContent = (htmlContent) => {
-    if (editorRef.current) {
-      const currentContent = editorRef.current.innerHTML;
-      const newContent = currentContent + (currentContent ? '<br/><br/>' : '') + htmlContent;
-      editorRef.current.innerHTML = newContent;
-      setEditorContent(newContent);
-      setSaveStatus('unsaved');
     }
   };
 
@@ -1240,8 +1229,7 @@ export default function UploadNews() {
                 </div>
               </div>
 
-              {/* AI Assistant */}
-              <GeminiChatbot onInsertContent={handleInsertAIContent} />
+
 
               {/* API and ImageKit config panel */}
       
